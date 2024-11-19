@@ -13,8 +13,9 @@ function App() {
         <section class="content">
           <div class="container-fluid p-5">
           <Routes>
+         
                 <Route path="/users-publications" element={<UserPublication />} />
-                
+                    
           </Routes>
          </div>
         </section>

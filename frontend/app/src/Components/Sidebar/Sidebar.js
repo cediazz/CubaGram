@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { Link } from "react-router-dom"
 
 function Sidebar() {
 
@@ -33,41 +34,29 @@ function Sidebar() {
         <nav class="mt-2">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item">
-              <a  class="nav-link" onClick={() => { navigate("/users-publications") }} >
+              <Link  class="nav-link" to='users-publications'>
                 <i class="nav-icon fas fa-home"></i>
                 <p>
                   Principal
                 </p>
-              </a>
+              </Link>
            </li>
             <li class="nav-item">
               <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <i class="nav-icon fas fa-cog fa-3x"></i>
                 <p>
-                  Dashboard
+                  Configuración
                   <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
                   <a href="../../index.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Dashboard v1</p>
+                    <i class="fas fa-sign-out-alt fa-3x nav-icon"></i>
+                    <p>Salir</p>
                   </a>
                 </li>
-                <li class="nav-item">
-                  <a href="../../index2.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Dashboard v2</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="../../index3.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Dashboard v3</p>
-                  </a>
-                </li>
-              </ul>
+                </ul>
             </li>
           </ul>
         </nav>
