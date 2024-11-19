@@ -1,9 +1,9 @@
-import { useNavigate } from 'react-router-dom';
+
 import { Link } from "react-router-dom"
 
 function Sidebar() {
 
-  const navigate = useNavigate();
+  
 
   return (
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -51,10 +51,10 @@ function Sidebar() {
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="../../index.html" class="nav-link">
+                  <Link  class="nav-link" to='login'>
                     <i class="fas fa-sign-out-alt fa-3x nav-icon"></i>
                     <p>Salir</p>
-                  </a>
+                  </Link>
                 </li>
                 </ul>
             </li>
