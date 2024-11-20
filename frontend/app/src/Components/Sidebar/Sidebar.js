@@ -41,6 +41,14 @@ function Sidebar() {
                 </p>
               </Link>
            </li>
+           <li class="nav-item">
+              <Link  class="nav-link" to='users'>
+                <i class="nav-icon fas fa-user"></i>
+                <p>
+                  Usuarios
+                </p>
+              </Link>
+           </li>
             <li class="nav-item">
               <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-cog fa-3x"></i>

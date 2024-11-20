@@ -3,6 +3,7 @@ import Navbar from "./Components/Navbar/Navbar";
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import UserPublication from "./Components/UserPublication/UserPublication";
 import Login from "./Components/Login/Login";
+import Users from "./Components/Users/Users";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
                     <div className="container-fluid p-5">
                      <Routes>
                         <Route path="/users-publications" element={<UserPublication />} />
+                        <Route path="/users" element={<Users />} />
                       </Routes>
                     </div>
                   </section>
