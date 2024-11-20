@@ -5,6 +5,7 @@ import UserPublication from "./Components/UserPublication/UserPublication";
 import Login from "./Components/Login/Login";
 import Users from "./Components/Users/Users";
 import Register from "./Components/Register/Register";
+import Profile from "./Components/Profile/Profile";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
                      <Routes>
                         <Route path="/users-publications" element={<UserPublication />} />
                         <Route path="/users" element={<Users />} />
+                        <Route path="/profile" element={<Profile />} />
                       </Routes>
                     </div>
                   </section>
