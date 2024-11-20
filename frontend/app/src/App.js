@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import UserPublication from "./Components/UserPublication/UserPublication";
 import Login from "./Components/Login/Login";
 import Users from "./Components/Users/Users";
+import Register from "./Components/Register/Register";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
     <div class="wrapper">
       <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/Register" element={<Register />} />
           {/* Routes with Sidebar and Navbar */}
           <Route
             path="/*" /* All Routes inside this Route */
