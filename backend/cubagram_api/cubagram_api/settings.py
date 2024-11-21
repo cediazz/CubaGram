@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     'drf_yasg',
+    'user_management',
 ]
 
 REST_FRAMEWORK = {
@@ -141,9 +142,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-MEDIA_URL = '/Images/'
-MEDIA_ROOT = os.path.join(BASE_DIR,'Images')
+MEDIA_URL = '/Media/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'Media')
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AUTH_USER_MODEL = 'user_management.CustomUser'
