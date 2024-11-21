@@ -4,7 +4,7 @@ function UserPublication(){
     return(
         
         <div class="row d-flex justify-content-center">
-          <div class="col-md-6">
+          <div class="col-md-12">
             
             <div class="card card-widget">
               <div class="card-header">
