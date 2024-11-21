@@ -1,4 +1,5 @@
 import InformationProfile from "./InformationProfile"
+import AboutMe from "./AboutMeProfile"
 
 function Profile(){
 
@@ -6,6 +7,7 @@ function Profile(){
        <div class="row">
           <div class="col-md-3">
            <InformationProfile />
+           <AboutMe />
         </div>
     </div>
 
