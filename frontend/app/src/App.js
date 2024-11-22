@@ -6,6 +6,7 @@ import Login from "./Components/Login/Login";
 import Users from "./Components/Users/Users";
 import Register from "./Components/Register/Register";
 import Profile from "./Components/Profile/Profile";
+import './App.css'
 
 function App() {
   return (
