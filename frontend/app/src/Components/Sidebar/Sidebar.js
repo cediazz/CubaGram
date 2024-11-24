@@ -3,6 +3,10 @@ import icons8 from '../../icons/icons8-wechat-color/icons8-wechat-480.png'
 
 function Sidebar() {
 
+  function LogOut(){
+    localStorage.clear()
+  }
+
   return (
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <a href="../../index3.html" class="brand-link">
@@ -54,7 +58,7 @@ function Sidebar() {
               </Link>
             </li>
             <li class="nav-item">
-              <Link class="nav-link" to='login'>
+              <Link class="nav-link" to='login' onClick={LogOut}>
                 <i class="fas fa-sign-out-alt fa-3x nav-icon"></i>
                 <p>Salir</p>
               </Link>
