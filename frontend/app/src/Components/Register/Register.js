@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import icons8 from '../../icons/icons8-wechat-color/icons8-wechat-480.png'
 
 function Register() {
 
@@ -6,7 +7,7 @@ function Register() {
         <div class=" login-page">
             <div class="login-box">
                 <div class="login-logo">
-                    <img src="{% static 'ETECSA_circularCOLOR.png' %}" width="102" height="102" />
+                    <img src={icons8} width="202" height="202" alt="" />
                 </div>
 
                 <div class="card">

@@ -1,7 +1,9 @@
 from rest_framework.serializers import ModelSerializer
 from .models import CustomUser
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from datetime import timedelta
+from django.contrib.auth import password_validation
+from django.core.exceptions import ValidationError
+from rest_framework import serializers
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     
@@ -21,6 +23,13 @@ class UserSerializer(ModelSerializer):
     class Meta:
         model = CustomUser
         fields = ['id','username','password','image','first_name','last_name']
+
+    def validate_password(self, value):
+        try:
+            password_validation.validate_password(password=value)
+        except ValidationError as e:
+            raise serializers.ValidationError(list(e.messages))
+        return value
     
     def create(self,validated_data):
         user = CustomUser(**validated_data)
