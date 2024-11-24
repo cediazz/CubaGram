@@ -7,6 +7,6 @@
 }
 
 ul {
-    list-style-type: none; /* Elimina las viñetas */
-    text-align: left; /* Alinea el texto a la izquierda */
+    list-style-type: none; 
+    text-align: left; 
 }

@@ -1,5 +1,15 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function UserPublication(){
+
+  const navigate = useNavigate();
+ 
+  useEffect(() => {
+    if (!localStorage.getItem('username'))
+     navigate("/login")
+    
+  }, [])
 
     return(
         

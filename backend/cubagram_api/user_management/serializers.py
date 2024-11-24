@@ -13,6 +13,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         # Agregar tiempo de expiración
         data['expiration'] = access.payload['exp']  #agregar swager 
         data["username"] = self.user.username
+        data["image"] = f"http://127.0.0.1:8000{self.user.image.url}"
         return data
 
 

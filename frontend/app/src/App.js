@@ -9,6 +9,9 @@ import Profile from "./Components/Profile/Profile";
 import './App.css'
 
 function App() {
+
+  
+
   return (
     <BrowserRouter>
     <div class="wrapper">
