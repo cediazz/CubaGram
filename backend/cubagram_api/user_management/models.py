@@ -1,6 +1,7 @@
 from django.db import models
-
 from django.contrib.auth.models import PermissionsMixin,AbstractBaseUser,BaseUserManager
+from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 
 class MyUserManager(BaseUserManager):
     def create_user(self, username,password=None):
@@ -36,6 +37,9 @@ class MyUserManager(BaseUserManager):
 
 class CustomUser(AbstractBaseUser,PermissionsMixin):
     username = models.CharField(max_length=15,unique=True)
+    first_name = models.CharField(_("first name"), max_length=150, blank=True)
+    last_name = models.CharField(_("last name"), max_length=150, blank=True)
+    date_joined = models.DateTimeField(_("date joined"), default=timezone.now)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     image = models.ImageField(default='users_images/default-avatar.png')
