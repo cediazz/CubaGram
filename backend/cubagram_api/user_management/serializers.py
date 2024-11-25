@@ -13,8 +13,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         data = super().validate(attrs)
         refresh = self.get_token(self.user)
         access = refresh.access_token
-        # Agregar tiempo de expiración
-        data['expiration'] = access.payload['exp']  #agregar swager 
+        data['id'] = self.user.id  
         data["username"] = self.user.username
         data["image"] = f"http://127.0.0.1:8000{self.user.image.url}"
         return data

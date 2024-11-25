@@ -2,6 +2,8 @@
 
 function InformationProfile(){
 
+  
+
     return(
         <div class="card card-primary card-outline">
               <div class="card-body box-profile">

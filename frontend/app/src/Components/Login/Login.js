@@ -31,6 +31,7 @@ function Login() {
                 localStorage.setItem('access', res.data.access)
                 localStorage.setItem('username', res.data.username)
                 localStorage.setItem('image', res.data.image)
+                localStorage.setItem('user_id', res.data.id)
                 setLoading(false)
                 navigate("/users-publications");
             } else if (res.status == 401) {
