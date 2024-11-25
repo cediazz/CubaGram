@@ -36,7 +36,7 @@ class MyUserManager(BaseUserManager):
 
 
 class CustomUser(AbstractBaseUser,PermissionsMixin):
-    username = models.CharField(max_length=15,unique=True)
+    username = models.CharField(max_length=15,unique=True,verbose_name='nombre de usuario')
     first_name = models.CharField(_("first name"), max_length=150, blank=True)
     last_name = models.CharField(_("last name"), max_length=150, blank=True)
     date_joined = models.DateTimeField(_("date joined"), default=timezone.now)
@@ -49,7 +49,7 @@ class CustomUser(AbstractBaseUser,PermissionsMixin):
     objects = MyUserManager()
 
     class Meta:
-        verbose_name = "user"
+        verbose_name = "usuario"
         db_table = 'auth_custom_user'
 
     USERNAME_FIELD = "username"

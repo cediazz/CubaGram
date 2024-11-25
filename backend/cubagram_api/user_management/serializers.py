@@ -5,6 +5,7 @@ from django.contrib.auth import password_validation
 from django.core.exceptions import ValidationError
 from rest_framework import serializers
 
+
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     
 
@@ -20,9 +21,13 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 
 class UserSerializer(ModelSerializer):
+    
+    
+    
     class Meta:
         model = CustomUser
         fields = ['id','username','password','image','first_name','last_name']
+        
 
     def validate_password(self, value):
         try:
@@ -32,6 +37,7 @@ class UserSerializer(ModelSerializer):
         return value
     
     def create(self,validated_data):
+        print(validated_data)
         user = CustomUser(**validated_data)
         user.set_password(validated_data['password'])
         user.save()
