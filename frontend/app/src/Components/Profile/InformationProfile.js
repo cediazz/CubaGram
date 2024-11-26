@@ -17,17 +17,17 @@ function InformationProfile(props){
 
                 <ul class="list-group list-group-unbordered mb-3">
                   <li class="list-group-item">
-                    <b>Followers</b> <a class="float-right">1,322</a>
+                    <b>Seguidores</b> <a className="float-right">1,322</a>
                   </li>
                   <li class="list-group-item">
-                    <b>Following</b> <a class="float-right">543</a>
+                    <b>Siguiendo</b> <a className="float-right">543</a>
                   </li>
                   <li class="list-group-item">
-                    <b>Friends</b> <a class="float-right">13,287</a>
+                    <b>Amigos</b> <a className="float-right">13,287</a>
                   </li>
                 </ul>
 
-                <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+                <a href="#" className="btn btn-primary btn-block"><b>Follow</b></a>
               </div>
              
             </div>

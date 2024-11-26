@@ -49,7 +49,7 @@ function Profile() {
         <div class="row">
             <div class="col-md-3">
                 <InformationProfile userData={userData} />
-                <AboutMe />
+                <AboutMe userData={userData} />
             </div>
             <div class="col-md-9">
                 <CardProfile />
