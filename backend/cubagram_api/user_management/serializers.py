@@ -22,10 +22,10 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 class UserSerializer(ModelSerializer):
     
     
-    
     class Meta:
         model = CustomUser
-        fields = ['id','username','password','image','first_name','last_name']
+        fields = ['id','username','password','image','first_name','last_name','biography','education','location']
+        
         
 
     def validate_password(self, value):

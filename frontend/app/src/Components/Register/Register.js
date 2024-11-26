@@ -5,7 +5,7 @@ import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import Swal from 'sweetalert2'
 import ErrorList from "../ErrorList/ErrorList";
-import Loading from "../Loading/Loading";
+import Loading from "../Loading/Loading"
 import { useNavigate } from "react-router-dom"
 import axios from 'axios'
 import AlertServer from "../AlertServer/AlertServer";
