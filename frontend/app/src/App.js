@@ -31,7 +31,7 @@ function App() {
                      <Routes>
                         <Route path="/users-publications" element={<UserPublication />} />
                         <Route path="/users" element={<Users />} />
-                        <Route path="/profile" element={<Profile />} />
+                        <Route path="/profile/:id" element={<Profile />} />
                       </Routes>
                     </div>
                   </section>

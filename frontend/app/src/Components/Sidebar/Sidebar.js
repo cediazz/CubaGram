@@ -3,6 +3,8 @@ import icons8 from '../../icons/icons8-wechat-color/icons8-wechat-480.png'
 
 function Sidebar() {
 
+  const user_id = localStorage.getItem('user_id')
+  
   function LogOut(){
     localStorage.clear()
   }
@@ -52,7 +54,7 @@ function Sidebar() {
               </Link>
             </li>
             <li class="nav-item">
-              <Link class="nav-link" to='profile'>
+              <Link class="nav-link" to={"profile/" + user_id}>
                 <img src="" alt="" class="img-circle nav-icon" />
                 <p>Perfil</p>
               </Link>
