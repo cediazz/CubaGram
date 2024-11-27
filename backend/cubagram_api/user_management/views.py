@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from .models import CustomUser
 from .serializers import UserSerializer,MyTokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
- 
+from .permissions import IsAuthenticatedOrCreate
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
@@ -13,6 +13,6 @@ class MyTokenObtainPairView(TokenObtainPairView):
 class UserView(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticatedOrCreate]
 
 
