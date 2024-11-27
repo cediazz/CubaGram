@@ -5,8 +5,9 @@ import { useState } from 'react';
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Loading from "../Loading/Loading";
-import axios from 'axios'
 import {useParams } from 'react-router-dom';
+import getUser from "../../utils/getUser";
+import Swal from 'sweetalert2'
 
 function Profile() {
 
@@ -15,18 +16,29 @@ function Profile() {
     const [userData, setUserData] = useState({})
     const { id } = useParams();
     
+    
     async function getuser(id){
  
         try{
-        let res = await axios.get(`http://127.0.0.1:8000/users/${id}/`)
+        let res = await getUser(id)
         console.log(res)
-        if (res.status == 200){
-            setUserData(res.data)
+        if (res == 401){
+            setLoading(false)
+            navigate('/login');
+          }
+          else{
+            setUserData(res)
             setLoading(false)
           }
         }
-        catch(error){
-            console.log(error)
+        catch (error) {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: error.message,
+                confirmButtonColor: '#F27474'
+            });
+            setLoading(false)
         }
         
     
@@ -48,8 +60,8 @@ function Profile() {
         loading == true ? <Loading /> :
         <div class="row">
             <div class="col-md-3">
-                <InformationProfile userData={userData} />
-                <AboutMe userData={userData} />
+                {userData && <InformationProfile userData={userData} />}
+                {userData && <AboutMe userData={userData} />}
             </div>
             <div class="col-md-9">
                 <CardProfile />
