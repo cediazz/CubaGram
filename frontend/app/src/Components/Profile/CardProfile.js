@@ -2,7 +2,7 @@ import PublicationsProfile from "./PublicationsProfile"
 import React, { useState } from 'react'
 import ConfigurationProfile from "./ConfigurationProfile";
 
-function CardProfile() {
+function CardProfile(props) {
     const [activeTab, setActiveTab] = useState('activity'); // Estado para la pestaña activa
   
     const handleTabClick = (tab) => {
@@ -39,7 +39,7 @@ function CardProfile() {
               <PublicationsProfile />
             </div>
             <div className={activeTab === 'settings' ? 'tab-pane active' : 'tab-pane'} id="settings">
-            <ConfigurationProfile />
+            <ConfigurationProfile setLoading={props.setLoading} setUserData={props.setUserData} userData={props.userData} />
             </div>
           </div>
         </div>
