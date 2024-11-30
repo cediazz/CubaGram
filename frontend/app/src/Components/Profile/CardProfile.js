@@ -5,7 +5,7 @@ import ConfigurationProfile from "./ConfigurationProfile";
 
 function CardProfile(props) {
     
-  
+  const user_id = localStorage.getItem('user_id')
   const [activeTab, setActiveTab] = useState('settings'); // Estado para la pestaña activa
   
     const handleTabClick = (tab) => {
@@ -42,9 +42,10 @@ function CardProfile(props) {
             <div className={activeTab === 'activity' ? 'tab-pane active' : 'tab-pane'} id="activity">
               <PublicationsProfile />
             </div>
-            <div className={activeTab === 'settings' ? 'tab-pane active' : 'tab-pane'} id="settings">
+            {props.userData.id == user_id &&
+              <div className={activeTab === 'settings' ? 'tab-pane active' : 'tab-pane'} id="settings">
             <ConfigurationProfile setLoading={props.setLoading} setUserData={props.setUserData} userData={props.userData} />
-            </div>
+            </div>}
           </div>
         </div>
       </div>

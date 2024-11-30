@@ -1,8 +1,8 @@
-
+import { Link } from "react-router-dom"
 
 function InformationProfile(props){
 
-  
+  const user_id = localStorage.getItem('user_id')
 
     return(
         <div class="card card-primary card-outline">
@@ -27,7 +27,7 @@ function InformationProfile(props){
                   </li>
                 </ul>
 
-                <a href="#" className="btn btn-primary btn-block"><b>Follow</b></a>
+                {props.userData.id != user_id && <Link className="btn btn-primary btn-block"><b>Seguir</b></Link>}
               </div>
              
             </div>
