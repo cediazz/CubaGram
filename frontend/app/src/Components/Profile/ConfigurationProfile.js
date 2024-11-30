@@ -17,10 +17,6 @@ function ConfigurationProfile(props) {
     username: Yup.string().required('se requiere nombre de usuario'),
     first_name: Yup.string().required('se requiere el nombre'),
     last_name: Yup.string().required('se requiere los apellidos'),
-    password: Yup.string()
-    .required('se requiere password')
-    .notOneOf([/^d+$/, 'La contraseña no puede contener solo números'])
-    .min(8,'La contraseña debe tener al menos 8 caracteres'),
     image: Yup.mixed()
     .test('fileType', 'Solo se permiten imágenes', (value) => {
       if (value === undefined) return true
@@ -71,7 +67,6 @@ function ConfigurationProfile(props) {
       <Formik
             initialValues={
               { username: props.userData.username,
-                password: props.userData.password,  
                 first_name: props.userData.first_name, 
                 last_name: props.userData.last_name,
                 biography: props.userData.biography,
@@ -89,13 +84,6 @@ function ConfigurationProfile(props) {
                         <div class="col-sm-9">
                           <Field type="text" class="form-control"  id="username" name="username" />
                           <ErrorMessage name="username" >{(msg) => <div className='error-message'>{msg}<i class="fas fa-exclamation-circle px-1"></i></div>}</ErrorMessage>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label for="password" class="col-sm-3 col-form-label">Password</label>
-                        <div class="col-sm-9">
-                          <Field type="password" class="form-control"  id="password" name="password" />
-                          <ErrorMessage name="password" >{(msg) => <div className='error-message'>{msg}<i class="fas fa-exclamation-circle px-1"></i></div>}</ErrorMessage>
                         </div>
                       </div>
                       <div class="form-group row">
