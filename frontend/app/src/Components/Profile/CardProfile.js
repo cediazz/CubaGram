@@ -2,14 +2,18 @@ import PublicationsProfile from "./PublicationsProfile"
 import React, { useState } from 'react'
 import ConfigurationProfile from "./ConfigurationProfile";
 
+
 function CardProfile(props) {
-    const [activeTab, setActiveTab] = useState('activity'); // Estado para la pestaña activa
+    
+  
+  const [activeTab, setActiveTab] = useState('settings'); // Estado para la pestaña activa
   
     const handleTabClick = (tab) => {
       setActiveTab(tab); // Cambia la pestaña activa
     };
   
     return (
+      
       <div className="card">
         <div className="card-header p-2">
           <ul className="nav nav-pills">
@@ -44,6 +48,8 @@ function CardProfile(props) {
           </div>
         </div>
       </div>
+      
+     
     );
   }
 export default CardProfile

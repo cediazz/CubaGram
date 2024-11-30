@@ -24,7 +24,7 @@ class UserSerializer(ModelSerializer):
     
     class Meta:
         model = CustomUser
-        fields = ['id','username','image','first_name','last_name','biography','education','location']
+        fields = ['id','username','image','password','first_name','last_name','biography','education','location']
         
         
 
@@ -41,5 +41,11 @@ class UserSerializer(ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
+    
+    def update(self,instance,validated_data):
+        super().update(instance, validated_data)
+        instance.set_password(validated_data['password'])
+        instance.save()
+        return instance
     
     

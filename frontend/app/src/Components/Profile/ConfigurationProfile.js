@@ -1,44 +1,51 @@
 import { Formik, Form, Field,ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import Loading from "../Loading/Loading"
 import { useState } from 'react';
-import axios from 'axios'
-import getExtension from '../../utils/getExtensionFile';
 import updateUser from '../../utils/updateUser';
 import { useNavigate } from "react-router-dom";
+import Loading from "../Loading/Loading";
+import AlertServer from "../AlertServer/AlertServer";
+
 
 function ConfigurationProfile(props) {
 
-  const [errors, setErrors] = useState([])
+  const [loading, setLoading] = useState()
+  const [errorsServer, seterrorsServer] = useState()
   const navigate = useNavigate();
 
   const validationSchema = Yup.object().shape({
     username: Yup.string().required('se requiere nombre de usuario'),
     first_name: Yup.string().required('se requiere el nombre'),
     last_name: Yup.string().required('se requiere los apellidos'),
+    password: Yup.string()
+    .required('se requiere password')
+    .notOneOf([/^d+$/, 'La contraseña no puede contener solo números'])
+    .min(8,'La contraseña debe tener al menos 8 caracteres'),
     image: Yup.mixed()
     .test('fileType', 'Solo se permiten imágenes', (value) => {
       if (value === undefined) return true
       const fileTypes = ['image/jpeg', 'image/png', 'image/gif','image/jpg']
       return fileTypes.includes(value.type)
-     
-      
-    }),
+     }),
     })
 
   const handleSubmit = async (values) => {
-    props.setLoading(true)
+    setLoading(true)
+    seterrorsServer()
     console.log(values)
     try {
       let res = await updateUser(props.userData.id,values)
       console.log(res)
       if (res == 401){
-          props.setLoading(false)
+          setLoading(false)
           navigate('/login');
         }
         else{
+          localStorage.setItem('username', res.username)
+          localStorage.setItem('image', res.image)
           props.setUserData(res)
-          props.setLoading(false)
+          setLoading(false)
+          
         }
         
     }
@@ -51,18 +58,20 @@ function ConfigurationProfile(props) {
         })
        
         }
-        setErrors(serverErrors)
-        props.setLoading(false)
+        seterrorsServer(serverErrors)
+        setLoading(false)
 }
 }
 
 
 
   return (
-    
+    loading == true ? <Loading /> :
+      <>
       <Formik
             initialValues={
-              { username: props.userData.username, 
+              { username: props.userData.username,
+                password: props.userData.password,  
                 first_name: props.userData.first_name, 
                 last_name: props.userData.last_name,
                 biography: props.userData.biography,
@@ -80,6 +89,13 @@ function ConfigurationProfile(props) {
                         <div class="col-sm-9">
                           <Field type="text" class="form-control"  id="username" name="username" />
                           <ErrorMessage name="username" >{(msg) => <div className='error-message'>{msg}<i class="fas fa-exclamation-circle px-1"></i></div>}</ErrorMessage>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="password" class="col-sm-3 col-form-label">Password</label>
+                        <div class="col-sm-9">
+                          <Field type="password" class="form-control"  id="password" name="password" />
+                          <ErrorMessage name="password" >{(msg) => <div className='error-message'>{msg}<i class="fas fa-exclamation-circle px-1"></i></div>}</ErrorMessage>
                         </div>
                       </div>
                       <div class="form-group row">
@@ -118,7 +134,7 @@ function ConfigurationProfile(props) {
                         <label for="image" class="col-sm-3 col-form-label">Imagen de perfil</label>
                         <div class="col-sm-9">
                           <input type="file"   class="form-control" name="image" id="image" onChange={(event) => {
-                  setFieldValue("image", event.currentTarget.files[0]); // Guarda el archivo en el estado de Formik
+                  setFieldValue("image", event.currentTarget.files[0])
                 }} />
                           {errors.image && <div className='error-message'>{errors.image}<i class="fas fa-exclamation-circle px-1"></i></div>}
                         </div>
@@ -129,8 +145,11 @@ function ConfigurationProfile(props) {
                         </div>
                       </div>
                     </Form>
-                 )}
-                    </Formik>
+                    )}
+                </Formik>
+               {errorsServer && <AlertServer errors={errorsServer} />}
+               </>
+             
   )
 }
 export default ConfigurationProfile

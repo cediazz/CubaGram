@@ -6,6 +6,7 @@ async function updateUser(id,data){
     const refreshToken = localStorage.getItem('refresh')
     const formData = new FormData();
     formData.append('username', data.username);
+    formData.append('password', data.password);
     formData.append('first_name', data.first_name);
     formData.append('last_name', data.last_name);
     formData.append('biography', data.biography);
