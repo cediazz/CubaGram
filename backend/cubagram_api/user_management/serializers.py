@@ -28,6 +28,17 @@ class UserSerializer(ModelSerializer):
         
         
 
+    
+
+class UserCreateSerializer(ModelSerializer):
+    
+    
+    class Meta:
+        model = CustomUser
+        fields = ['id','username','password','image','first_name','last_name']
+        
+        
+
     def validate_password(self, value):
         try:
             password_validation.validate_password(password=value)
@@ -36,7 +47,6 @@ class UserSerializer(ModelSerializer):
         return value
     
     def create(self,validated_data):
-        print(validated_data)
         user = CustomUser(**validated_data)
         user.set_password(validated_data['password'])
         user.save()

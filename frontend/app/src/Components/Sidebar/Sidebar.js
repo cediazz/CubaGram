@@ -1,9 +1,13 @@
 import { Link } from "react-router-dom"
 import icons8 from '../../icons/icons8-wechat-color/icons8-wechat-480.png'
+import { useContext } from 'react';
+import { UserContext } from '../../utils/userContext';
+
 
 function Sidebar() {
 
   const user_id = localStorage.getItem('user_id')
+  const { user } = useContext(UserContext)
   
   function LogOut(){
     localStorage.clear()
@@ -19,10 +23,10 @@ function Sidebar() {
 
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
-            <img src={localStorage.getItem('image')} class="img-circle elevation-2" alt="" />
+            <img src={user.image} class="img-circle elevation-2" alt="" />
           </div>
           <div class="info">
-            <a href="#" class="d-block">{localStorage.getItem('username')}</a>
+            <a href="#" class="d-block">{user.username}</a>
           </div>
         </div>
         <div class="form-inline">

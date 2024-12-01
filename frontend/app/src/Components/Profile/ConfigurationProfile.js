@@ -5,13 +5,15 @@ import updateUser from '../../utils/updateUser';
 import { useNavigate } from "react-router-dom";
 import Loading from "../Loading/Loading";
 import AlertServer from "../AlertServer/AlertServer";
-
+import { useContext } from 'react';
+import { UserContext } from '../../utils/userContext';
 
 function ConfigurationProfile(props) {
 
   const [loading, setLoading] = useState()
   const [errorsServer, seterrorsServer] = useState()
   const navigate = useNavigate();
+  const { setUser } = useContext(UserContext)  //authenticated user
 
   const validationSchema = Yup.object().shape({
     username: Yup.string().required('se requiere nombre de usuario'),
@@ -40,6 +42,7 @@ function ConfigurationProfile(props) {
           localStorage.setItem('username', res.username)
           localStorage.setItem('image', res.image)
           props.setUserData(res)
+          setUser(res)  // update authenticated user
           setLoading(false)
           
         }

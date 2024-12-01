@@ -9,10 +9,13 @@ import ErrorList from "../ErrorList/ErrorList";
 import authenticate from "../../utils/authentication";
 import Loading from "../Loading/Loading";
 import { useNavigate } from "react-router-dom";
+import { useContext } from 'react';
+import { UserContext } from '../../utils/userContext';
 
 function Login() {
 
     const [loading, setLoading] = useState()
+    const { setUser } = useContext(UserContext)  //authenticated user
     const navigate = useNavigate();
 
     const validationSchema = Yup.object().shape({
@@ -32,6 +35,7 @@ function Login() {
                 localStorage.setItem('username', res.data.username)
                 localStorage.setItem('image', res.data.image)
                 localStorage.setItem('user_id', res.data.id)
+                setUser({'username':res.data.username,'image':res.data.image}) //update authenticated user
                 setLoading(false)
                 navigate("/users-publications");
             } else if (res.status == 401) {

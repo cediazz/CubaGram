@@ -8,40 +8,44 @@ import Register from "./Components/Register/Register";
 import Profile from "./Components/Profile/Profile";
 import './App.css'
 
+import { UserProvider } from "./utils/userContext";
+
 function App() {
 
-  
+ 
 
   return (
-    <BrowserRouter>
-    <div class="wrapper">
-      <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/Register" element={<Register />} />
-          {/* Routes with Sidebar and Navbar */}
-          <Route
-            path="/*" /* All Routes inside this Route */
-            element={
-              <>
-                <Navbar />
-                <Sidebar />
-                <div className="content-wrapper">
-                  <section className="content">
-                    <div className="container-fluid p-5">
-                     <Routes>
-                        <Route path="/users-publications" element={<UserPublication />} />
-                        <Route path="/users" element={<Users />} />
-                        <Route path="/profile/:id" element={<Profile />} />
-                      </Routes>
-                    </div>
-                  </section>
-                </div>
-              </>
-            }
-          />
-        </Routes>
-    </div>
-    </BrowserRouter>
+    <UserProvider>
+      <BrowserRouter>
+        <div class="wrapper">
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/Register" element={<Register />} />
+            {/* Routes with Sidebar and Navbar */}
+            <Route
+              path="/*" /* All Routes inside this Route */
+              element={
+                <>
+                  <Navbar />
+                  <Sidebar />
+                  <div className="content-wrapper">
+                    <section className="content">
+                      <div className="container-fluid p-5">
+                        <Routes>
+                          <Route path="/users-publications" element={<UserPublication />} />
+                          <Route path="/users" element={<Users />} />
+                          <Route path="/profile/:id" element={<Profile />} />
+                        </Routes>
+                      </div>
+                    </section>
+                  </div>
+                </>
+              }
+            />
+          </Routes>
+        </div>
+      </BrowserRouter>
+    </UserProvider>
   );
 }
 
