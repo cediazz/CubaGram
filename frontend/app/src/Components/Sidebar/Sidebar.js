@@ -2,12 +2,17 @@ import { Link } from "react-router-dom"
 import icons8 from '../../icons/icons8-wechat-color/icons8-wechat-480.png'
 import { useContext } from 'react';
 import { UserContext } from '../../utils/userContext';
-
+import { useEffect } from "react";
 
 function Sidebar() {
 
   const user_id = localStorage.getItem('user_id')
-  const { user } = useContext(UserContext)
+  const { user,setUser } = useContext(UserContext)
+
+  useEffect(() => {
+    setUser({'username':localStorage.getItem('username'),'image':localStorage.getItem('image')})
+
+}, [])
   
   function LogOut(){
     localStorage.clear()
@@ -42,7 +47,7 @@ function Sidebar() {
         <nav class="mt-2">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-item">
-              <Link class="nav-link" to='users-publications'>
+              <Link class="nav-link" to='/'>
                 <i class="nav-icon fas fa-home"></i>
                 <p>
                   Principal
@@ -59,7 +64,7 @@ function Sidebar() {
             </li>
             <li class="nav-item">
               <Link class="nav-link" to={"profile/" + user_id}>
-                <img src="" alt="" class="img-circle nav-icon" />
+                <img src={user.image} alt="" class="img-circle nav-icon" />
                 <p>Perfil</p>
               </Link>
             </li>

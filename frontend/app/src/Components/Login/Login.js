@@ -37,7 +37,7 @@ function Login() {
                 localStorage.setItem('user_id', res.data.id)
                 setUser({'username':res.data.username,'image':res.data.image}) //update authenticated user
                 setLoading(false)
-                navigate("/users-publications");
+                navigate("/");
             } else if (res.status == 401) {
                 Swal.fire({
                     icon: "error",

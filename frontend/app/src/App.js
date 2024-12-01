@@ -32,7 +32,7 @@ function App() {
                     <section className="content">
                       <div className="container-fluid p-5">
                         <Routes>
-                          <Route path="/users-publications" element={<UserPublication />} />
+                          <Route path="/" element={<UserPublication />} />
                           <Route path="/users" element={<Users />} />
                           <Route path="/profile/:id" element={<Profile />} />
                         </Routes>
