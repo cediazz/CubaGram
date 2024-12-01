@@ -26,6 +26,7 @@ function CardProfile(props) {
                 Actividad
               </a>
             </li>
+            {props.userData.id == user_id &&
             <li className="nav-item">
               <a
                 className={activeTab === 'settings' ? 'nav-link active' : 'nav-link'}
@@ -34,7 +35,7 @@ function CardProfile(props) {
               >
                 Configuración
               </a>
-            </li>
+            </li>}
           </ul>
         </div>
         <div className="card-body">
