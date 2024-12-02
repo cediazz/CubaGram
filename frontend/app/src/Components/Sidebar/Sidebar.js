@@ -4,6 +4,7 @@ import { useContext } from 'react';
 import { UserContext } from '../../utils/userContext';
 import { useEffect } from "react";
 
+
 function Sidebar() {
 
   const user_id = localStorage.getItem('user_id')
@@ -63,7 +64,7 @@ function Sidebar() {
               </Link>
             </li>
             <li class="nav-item">
-              <Link class="nav-link" to={"profile/" + user_id}>
+              <Link class="nav-link" to={"profile/" + user_id} >
                 <img src={user.image} alt="" class="img-circle nav-icon" />
                 <p>Perfil</p>
               </Link>
