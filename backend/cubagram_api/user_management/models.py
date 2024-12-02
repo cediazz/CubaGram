@@ -42,7 +42,7 @@ class CustomUser(AbstractBaseUser,PermissionsMixin):
     date_joined = models.DateTimeField(_("date joined"), default=timezone.now)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
-    image = models.ImageField(default='users_images/default-avatar.png')
+    image = models.ImageField(upload_to='users_images',default='users_images/default-avatar.png')
     biography = models.TextField(blank=True)
     education = models.TextField(blank=True)
     location = models.TextField(blank=True)

@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt.token_blacklist',
     'drf_yasg',
     'user_management',
+    'aplication_management',
 ]
 
 REST_FRAMEWORK = {
