@@ -5,7 +5,7 @@ function UsersCard(props){
     const userPerfil = "/profile/" + props.user.id
     
     return(
-        <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
+        <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column mt-3">
               <div class="card bg-light d-flex flex-fill">
                 <div class="card-body pt-0">
                   <div class="row">

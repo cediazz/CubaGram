@@ -7,7 +7,6 @@ import Users from "./Components/Users/Users";
 import Register from "./Components/Register/Register";
 import Profile from "./Components/Profile/Profile";
 import './App.css'
-
 import { UserProvider } from "./utils/userContext";
 
 function App() {
