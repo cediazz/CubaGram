@@ -21,7 +21,7 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('user_management.routers')),
+    path('', include('cubagram_api.routers')),
     path('', include('user_management.urls') ),
    
 ]

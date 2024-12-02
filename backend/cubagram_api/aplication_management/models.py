@@ -4,14 +4,14 @@ from user_management.models import CustomUser
 class Post(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='posts')
     content = models.TextField()
-    image = models.ImageField(blank=True)
+    image = models.ImageField(upload_to='post_images',blank=True)
     publication_date = models.DateTimeField(auto_now_add=True)
 
     
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE,related_name='comments')
     content = models.TextField()
     comment_date = models.DateTimeField(auto_now_add=True)
 
