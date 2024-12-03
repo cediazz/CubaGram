@@ -8,16 +8,15 @@ from user_management.models import CustomUser
 
 class PostSerializer(ModelSerializer):
 
-    #user = UserSerializer()
-    #user = serializers.PrimaryKeyRelatedField(queryset=CustomUser.objects.all())  # Solo muestra el ID del usuario
-   
+    numb_comm = serializers.IntegerField(read_only=True)
+    numb_likes = serializers.IntegerField(read_only=True)
     
     class Meta:
         model = Post
         fields = '__all__'
+        
     
     def to_representation(self, instance):
-        # Este método se llama al serializar una instancia del modelo
         representation = super().to_representation(instance)
-        representation['user'] = UserSerializer(instance.user).data  # Serializa el usuario completamente
+        representation['user'] = UserSerializer(instance.user).data  # show all user data
         return representation
