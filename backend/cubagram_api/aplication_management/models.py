@@ -29,4 +29,7 @@ class Follow(models.Model):
     followed = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='followed_by')
     follow_date = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        unique_together = [["follower","followed"]]
+
     
