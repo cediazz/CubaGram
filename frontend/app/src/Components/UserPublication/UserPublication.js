@@ -4,6 +4,7 @@ import PostComments from "../PostComments/PostComments";
 import Loading from "../Loading/Loading";
 import getPublications from "../../utils/getPublications";
 import Swal from 'sweetalert2'
+import { Link } from "react-router-dom"
 
 function UserPublication(){
 
@@ -54,12 +55,12 @@ function UserPublication(){
       loading == true ? <Loading /> :
         publications && publications.map(publication => 
           <div class="row d-flex justify-content-center">
-          <div class="col-md-12">
+          <div class="col-md-10">
             <div class="card card-widget">
               <div class="card-header">
                 <div class="user-block">
                   <img class="img-circle" src={publication.user.image} alt="" />
-                  <span class="username"><a href="#">{publication.user.first_name} {publication.user.last_name}</a></span>
+                  <span class="username"><Link to={"profile/" + publication.user.id}>{publication.user.first_name} {publication.user.last_name}</Link></span>
                   <span class="description">Publicado el {publication.publication_date}</span>
                 </div>
                <div class="card-tools">
@@ -72,8 +73,8 @@ function UserPublication(){
                 </div>
                </div>
               <div class="card-body">
-                {publication.image && <img class="img-fluid pad" src={publication.image} alt="" />}
-                <p>{publication.content}</p>
+                 {publication.image && <img class="img-fluid pad" src={publication.image} alt="" />}
+                 <p>{publication.content}</p>
                 <button type="button" class="btn btn-default btn-sm"><i class="fas fa-share"></i> Share</button>
                 <button type="button" class="btn btn-default btn-sm"><i class="far fa-thumbs-up"></i> Like</button>
                 <span class="float-right text-muted">{publication.numb_likes} likes- {publication.numb_comm} comentarios</span>

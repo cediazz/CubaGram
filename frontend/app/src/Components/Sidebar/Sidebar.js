@@ -70,6 +70,12 @@ function Sidebar() {
               </Link>
             </li>
             <li class="nav-item">
+              <Link class="nav-link" to="create-publication" >
+                <i class="nav-icon fas fa-plus-square"></i>
+                <p>Crear publicación</p>
+              </Link>
+            </li>
+            <li class="nav-item">
               <Link class="nav-link" to='login' onClick={LogOut}>
                 <i class="fas fa-sign-out-alt fa-3x nav-icon"></i>
                 <p>Salir</p>

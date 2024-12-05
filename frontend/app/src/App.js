@@ -8,12 +8,11 @@ import Register from "./Components/Register/Register";
 import Profile from "./Components/Profile/Profile";
 import './App.css'
 import { UserProvider } from "./utils/userContext";
+import CreatePublication from "./Components/CreatePublication/CreatePublication";
 
 function App() {
 
- 
-
-  return (
+ return (
     <UserProvider>
       <BrowserRouter>
         <div class="wrapper">
@@ -34,6 +33,7 @@ function App() {
                           <Route path="/" element={<UserPublication />} />
                           <Route path="/users" element={<Users />} />
                           <Route path="/profile/:id" element={<Profile />} />
+                          <Route path="/create-publication" element={<CreatePublication />} />
                         </Routes>
                       </div>
                     </section>

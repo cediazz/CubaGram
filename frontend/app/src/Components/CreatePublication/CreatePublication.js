@@ -1,0 +1,111 @@
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import { useState } from 'react';
+import updateUser from '../../utils/updateUser';
+import { useNavigate } from "react-router-dom";
+import Loading from "../Loading/Loading";
+import AlertServer from "../AlertServer/AlertServer";
+import { useContext } from 'react';
+import { UserContext } from '../../utils/userContext';
+
+function CreatePublication(props) {
+
+    const [loading, setLoading] = useState()
+    const [errorsServer, seterrorsServer] = useState()
+    const navigate = useNavigate();
+    const { user } = useContext(UserContext)  //authenticated user
+
+    const validationSchema = Yup.object().shape({
+        content: Yup.string().required('se requiere contenido'),
+        image: Yup.mixed()
+            .test('fileType', 'Solo se permiten imágenes', (value) => {
+                if (value === undefined) return true
+                const fileTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/jpg']
+                return fileTypes.includes(value.type)
+            }),
+    })
+
+    const handleSubmit = async (values) => {
+        setLoading(true)
+        seterrorsServer()
+        console.log(values)
+        try {
+            let res = await updateUser(props.userData.id, values)
+            console.log(res)
+            if (res == 401) {
+                setLoading(false)
+                navigate('/login');
+            }
+            else {
+                localStorage.setItem('username', res.username)
+                localStorage.setItem('image', res.image)
+                props.setUserData(res)
+                //setUser(res)  // update authenticated user
+                setLoading(false)
+
+            }
+
+        }
+        catch (error) {
+            console.log(error)
+            let serverErrors = []
+            for (const key in error.response.data) {
+                error.response.data[key].forEach(error => {
+                    serverErrors.push(error)
+                })
+
+            }
+            seterrorsServer(serverErrors)
+            setLoading(false)
+        }
+    }
+
+
+
+    return (
+        loading == true ? <Loading /> :
+            <div class="card card-default">
+                <div class="card-header">
+                    <h3 class="card-title"><i class="nav-icon fas fa-plus-square"></i> Crear publicación</h3>
+                </div>
+                <div class="card-body">
+                    <Formik
+                        initialValues={
+                            {
+                                content: "",
+
+                            }
+                        }
+                        validationSchema={validationSchema}
+                        onSubmit={(values) => handleSubmit(values)}
+                    >
+                        {({ setFieldValue, errors }) => (
+                            <Form>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="content">Contenido</label>
+                                        <Field class="form-control select2" as="textarea" name="content" id="content" placeholder="Contenido" style={{ width: '100%' }} />
+                                        <ErrorMessage name="content">{(msg) => <div className='error-message'>{msg}<i class="fas fa-exclamation-circle px-1"></i></div>}</ErrorMessage>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="image">Imagen(Opcional)</label>
+                                        <input type="file" class="form-control select2" name="image" id="image" style={{ width: '100%' }} onChange={(event) => {
+                                            setFieldValue("image", event.currentTarget.files[0])
+                                        }} />
+                                        {errors.image && <div className='error-message'>{errors.image}<i class="fas fa-exclamation-circle px-1"></i></div>}
+                                    </div>
+                                    <div class="col-md-6 mt-3">
+                                        <button type="submit" class="btn btn-primary"><i class="nav-icon fas fa-plus-square"></i> Publicar</button>
+                                    </div>
+                                </div>
+                            </Form>
+                        )}
+                    </Formik>
+                </div>
+            </div>
+
+
+
+    )
+}
+export default CreatePublication
