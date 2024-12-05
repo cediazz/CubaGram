@@ -10,13 +10,19 @@ class PostSerializer(ModelSerializer):
 
     numb_comm = serializers.IntegerField(read_only=True)
     numb_likes = serializers.IntegerField(read_only=True)
+    user = UserSerializer(read_only = True)
+    
+    class Meta:
+        model = Post
+        fields = '__all__'
+    
+
+class PostCreateSerializer(ModelSerializer):
+
     
     class Meta:
         model = Post
         fields = '__all__'
         
     
-    def to_representation(self, instance):
-        representation = super().to_representation(instance)
-        representation['user'] = UserSerializer(instance.user).data  # show all user data
-        return representation
+    

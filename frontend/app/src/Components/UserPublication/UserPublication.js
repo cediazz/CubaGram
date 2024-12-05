@@ -1,33 +1,68 @@
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
 import { useNavigate } from "react-router-dom";
+import PostComments from "../PostComments/PostComments";
+import Loading from "../Loading/Loading";
+import getPublications from "../../utils/getPublications";
+import Swal from 'sweetalert2'
 
 function UserPublication(){
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
+  const [loading, setLoading] = useState()
+  const [publications, setPublications] = useState()
+  const [comments, setComments] = useState()
+  
+  async function getpublications(){
+ 
+    try{
+    let res = await getPublications()
+    console.log(res)
+    if (res == 401){
+        setLoading(false)
+        navigate('/login');
+      }
+      else{
+        setPublications(res)
+        setLoading(false)
+      }
+    }
+    catch (error) {
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: error.message,
+            confirmButtonColor: '#F27474'
+        });
+        setLoading(false)
+    }
+    
+
+}
  
   useEffect(() => {
+    setLoading(true)
     if (!localStorage.getItem('username'))
-     navigate("/login")
-    
-  }, [])
+        navigate("/login")
+    else{
+      getpublications()
+       
+    }
+
+}, [])
 
     return(
-        
-        <div class="row d-flex justify-content-center">
+      loading == true ? <Loading /> :
+        publications && publications.map(publication => 
+          <div class="row d-flex justify-content-center">
           <div class="col-md-12">
-            
             <div class="card card-widget">
               <div class="card-header">
                 <div class="user-block">
-                  <img class="img-circle" src="../dist/img/user1-128x128.jpg" alt="User Image" />
-                  <span class="username"><a href="#">Jonathan Burke Jr.</a></span>
-                  <span class="description">Shared publicly - 7:30 PM Today</span>
+                  <img class="img-circle" src={publication.user.image} alt="" />
+                  <span class="username"><a href="#">{publication.user.first_name} {publication.user.last_name}</a></span>
+                  <span class="description">{publication.user.publication_date}</span>
                 </div>
-               
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" title="Mark as read">
-                    <i class="far fa-circle"></i>
-                  </button>
+               <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse">
                     <i class="fas fa-minus"></i>
                   </button>
@@ -35,48 +70,16 @@ function UserPublication(){
                     <i class="fas fa-times"></i>
                   </button>
                 </div>
-               
-              </div>
-              
+               </div>
               <div class="card-body">
-                <img class="img-fluid pad" src="../dist/img/photo2.png" alt="Photo" />
-
-                <p>I took this photo this morning. What do you guys think?</p>
+                {publication.image && <img class="img-fluid pad" src={publication.image} alt="" />}
+                <p>{publication.content}</p>
                 <button type="button" class="btn btn-default btn-sm"><i class="fas fa-share"></i> Share</button>
                 <button type="button" class="btn btn-default btn-sm"><i class="far fa-thumbs-up"></i> Like</button>
-                <span class="float-right text-muted">127 likes - 3 comments</span>
+                <span class="float-right text-muted">{publication.numb_likes} likes- {publication.numb_comm} comentarios</span>
               </div>
-             
-              <div class="card-footer card-comments">
-                <div class="card-comment">
-                 
-                  <img class="img-circle img-sm" src="../dist/img/user3-128x128.jpg" alt="User Image" />
-
-                  <div class="comment-text">
-                    <span class="username">
-                      Maria Gonzales
-                      <span class="text-muted float-right">8:03 PM Today</span>
-                    </span>
-                    It is a long established fact that a reader will be distracted
-                    by the readable content of a page when looking at its layout.
-                  </div>
-                  
-                </div>
-               
-                <div class="card-comment">
-                  
-                  <img class="img-circle img-sm" src="../dist/img/user4-128x128.jpg" alt="User Image" />
-
-                  <div class="comment-text">
-                    <span class="username">
-                      Luna Stark
-                      <span class="text-muted float-right">8:03 PM Today</span>
-                    </span>
-                    
-                  </div>
-                  
-                </div>
-                
+             <div class="card-footer card-comments">
+                {comments && <PostComments />}
               </div>
               
               <div class="card-footer">
@@ -91,6 +94,8 @@ function UserPublication(){
             </div>
             </div>
           </div>
+        )
+          
     )
 }
 export default UserPublication
