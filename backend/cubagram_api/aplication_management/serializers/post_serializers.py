@@ -5,6 +5,7 @@ from .comments_serializers import CommentSerializer
 from .like_serializers import LikeSerializer
 from rest_framework import serializers
 from user_management.models import CustomUser
+from cubagram_api.utils import format_date_HMS
 
 class PostSerializer(ModelSerializer):
 
@@ -15,6 +16,12 @@ class PostSerializer(ModelSerializer):
     class Meta:
         model = Post
         fields = '__all__'
+
+    def to_representation(self, instance):
+        rep = super().to_representation(instance)
+        converted_date = format_date_HMS(rep['publication_date'])
+        rep['publication_date'] = converted_date
+        return rep
     
 
 class PostCreateSerializer(ModelSerializer):

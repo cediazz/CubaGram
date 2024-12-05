@@ -60,7 +60,7 @@ function UserPublication(){
                 <div class="user-block">
                   <img class="img-circle" src={publication.user.image} alt="" />
                   <span class="username"><a href="#">{publication.user.first_name} {publication.user.last_name}</a></span>
-                  <span class="description">{publication.user.publication_date}</span>
+                  <span class="description">Publicado el {publication.publication_date}</span>
                 </div>
                <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse">
