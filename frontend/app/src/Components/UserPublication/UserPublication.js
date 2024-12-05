@@ -5,6 +5,7 @@ import Loading from "../Loading/Loading";
 import getPublications from "../../utils/getPublications";
 import Swal from 'sweetalert2'
 import { Link } from "react-router-dom"
+import LikeButton from "../LikeButton/LikeButton";
 
 function UserPublication(){
 
@@ -76,7 +77,7 @@ function UserPublication(){
                  {publication.image && <img class="img-fluid pad" src={publication.image} alt="" />}
                  <p>{publication.content}</p>
                 <button type="button" class="btn btn-default btn-sm"><i class="fas fa-share"></i> Share</button>
-                <button type="button" class="btn btn-default btn-sm"><i class="far fa-thumbs-up"></i> Like</button>
+                <LikeButton setLoading={setLoading} publicationId={publication.id} />
                 <span class="float-right text-muted">{publication.numb_likes} likes- {publication.numb_comm} comentarios</span>
               </div>
              <div class="card-footer card-comments">
