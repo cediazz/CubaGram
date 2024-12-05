@@ -1,19 +1,18 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useState } from 'react';
-import updateUser from '../../utils/updateUser';
+import createPublication from '../../utils/createPublication';
 import { useNavigate } from "react-router-dom";
 import Loading from "../Loading/Loading";
 import AlertServer from "../AlertServer/AlertServer";
-import { useContext } from 'react';
-import { UserContext } from '../../utils/userContext';
+import Swal from 'sweetalert2'
 
 function CreatePublication(props) {
 
     const [loading, setLoading] = useState()
     const [errorsServer, seterrorsServer] = useState()
     const navigate = useNavigate();
-    const { user } = useContext(UserContext)  //authenticated user
+    
 
     const validationSchema = Yup.object().shape({
         content: Yup.string().required('se requiere contenido'),
@@ -30,17 +29,18 @@ function CreatePublication(props) {
         seterrorsServer()
         console.log(values)
         try {
-            let res = await updateUser(props.userData.id, values)
+            let res = await createPublication(values)
             console.log(res)
             if (res == 401) {
                 setLoading(false)
                 navigate('/login');
             }
             else {
-                localStorage.setItem('username', res.username)
-                localStorage.setItem('image', res.image)
-                props.setUserData(res)
-                //setUser(res)  // update authenticated user
+                Swal.fire({
+                    title: "Buen trabajo!",
+                    text: 'Publicación creada',
+                    icon: "success",
+                    })
                 setLoading(false)
 
             }
@@ -101,6 +101,7 @@ function CreatePublication(props) {
                             </Form>
                         )}
                     </Formik>
+                    {errorsServer && <AlertServer errors={errorsServer} />}
                 </div>
             </div>
 
