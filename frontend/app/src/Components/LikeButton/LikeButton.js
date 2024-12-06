@@ -15,7 +15,7 @@ function LikeButton(props) {
                 props.setLoading(false)
                 navigate('/login');
               }
-              props.getpublications()
+              props.getpublications() //update publications
               props.setLoading(false)
             }
             catch (error) {
