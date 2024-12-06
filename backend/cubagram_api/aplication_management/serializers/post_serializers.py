@@ -6,13 +6,13 @@ from .like_serializers import LikeSerializer
 from rest_framework import serializers
 from user_management.models import CustomUser
 from cubagram_api.utils import format_date_HMS
+from ..models import Like
 
 class PostSerializer(ModelSerializer):
 
     numb_comm = serializers.IntegerField(read_only=True)
     numb_likes = serializers.IntegerField(read_only=True)
     user = UserSerializer(read_only = True)
-    likes = LikeSerializer(many=True,read_only=True)
     user_liked = serializers.SerializerMethodField()
     
     class Meta:
@@ -23,7 +23,7 @@ class PostSerializer(ModelSerializer):
         request = self.context.get('request')
         if request and request.user.is_authenticated:
             # Verifica si el usuario autenticado ha dado like a esta publicación
-            return obj.likes.filter(user=request.user).exists()
+            return Like.objects.filter(user=request.user, post = obj.id).exists()
         return False  
     
     def to_representation(self, instance):
