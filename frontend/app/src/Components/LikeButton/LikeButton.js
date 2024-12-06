@@ -15,10 +15,7 @@ function LikeButton(props) {
                 props.setLoading(false)
                 navigate('/login');
               }
-              else if (res == 204){
-                // quitarle el color al boton del dedito con un estado
-                props.setLoading(false)
-              }
+              props.getpublications()
               props.setLoading(false)
             }
             catch (error) {

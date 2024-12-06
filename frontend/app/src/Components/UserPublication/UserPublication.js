@@ -77,7 +77,7 @@ function UserPublication(){
                  {publication.image && <img class="img-fluid pad" src={publication.image} alt="" />}
                  <p>{publication.content}</p>
                 <button type="button" class="btn btn-default btn-sm"><i class="fas fa-share"></i> Share</button>
-                <LikeButton setLoading={setLoading} publicationId={publication.id} />
+                <LikeButton setLoading={setLoading} publicationId={publication.id} getpublications={getpublications} />
                 <span class="float-right text-muted">{publication.numb_likes} likes- {publication.numb_comm} comentarios</span>
               </div>
              <div class="card-footer card-comments">
