@@ -1,18 +1,20 @@
+import { Link } from "react-router-dom"
 
-function PostComments() {
+function PostComments(props) {
 
     return (
-        <div class="card-comment">
-            <img class="img-circle img-sm" src="../dist/img/user3-128x128.jpg" alt="User Image" />
+        props.comments.map(comment => 
+            <div class="card-comment">
+            <img class="img-circle img-sm" src={comment.user.image} alt="" />
             <div class="comment-text">
                 <span class="username">
-                    Maria Gonzales
-                    <span class="text-muted float-right">8:03 PM Today</span>
+                <Link to={"profile/" + comment.user.id}>{comment.user.first_name} {comment.user.last_name}</Link>
+                    <span class="text-muted float-right">{comment.comment_date}</span>
                 </span>
-                It is a long established fact that a reader will be distracted
-                by the readable content of a page when looking at its layout.
+                {comment.content}
             </div>
         </div>
+    )
     )
 }
 export default PostComments
