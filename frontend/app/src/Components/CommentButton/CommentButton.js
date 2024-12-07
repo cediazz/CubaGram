@@ -1,4 +1,4 @@
-import createLike from "../../utils/createLike";
+import getComments from "../../utils/getComments";
 import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2'
 import { useState } from "react";
@@ -11,13 +11,22 @@ function CommentButton(props) {
     async function commentManagement() {
         setLoading(true)
         try {
-            /*let res = await createLike(props.publicationId)
+            let res = await getComments(props.publicationId)
             console.log(res)
             if (res == 401) {
                 setLoading(false)
                 navigate('/login');
-            }*/
-        setLoading(false)
+            }
+            if (res.length != 0)
+            props.setComments(res)
+            else
+            Swal.fire({
+                icon: "info",
+                title: "Información",
+                text: "No se econtraron comentarios para esta publicación",
+                
+            })
+           setLoading(false)
         }
         catch (error) {
             setLoading(false)
@@ -26,7 +35,7 @@ function CommentButton(props) {
                 title: "Oops...",
                 text: error.message,
                 confirmButtonColor: '#F27474'
-            });
+            })
 
         }
 

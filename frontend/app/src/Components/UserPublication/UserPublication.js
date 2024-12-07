@@ -86,7 +86,7 @@ function UserPublication() {
                 <span class="float-right text-muted">{publication.numb_likes} me gusta- {publication.numb_comm} comentarios</span>
               </div>
               <div class="card-footer card-comments">
-                {comments && <PostComments comments={comments} />}
+                {comments && <PostComments comments={comments} /> }
               </div>
 
               <div class="card-footer">
