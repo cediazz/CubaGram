@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 class CommentView(viewsets.ModelViewSet):
-    queryset = Comment.objects.order_by('comment_date')
+    queryset = Comment.objects.order_by('-comment_date')
     serializer_class = CommentSerializer
     permission_classes = [IsAuthenticated]
     pagination_class = None

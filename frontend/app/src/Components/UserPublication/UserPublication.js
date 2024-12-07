@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Comments from "../PostComments/PostComments";
+import Comments from "../Comments/Comments";
 import Loading from "../Loading/Loading";
 import getPublications from "../../utils/getPublications";
 import Swal from 'sweetalert2'
 import { Link } from "react-router-dom"
 import LikeButton from "../LikeButton/LikeButton";
 import CommentButton from "../CommentButton/CommentButton";
+import PostComment from "../PostComments/PostComments";
 
 function UserPublication() {
 
@@ -89,17 +90,12 @@ function UserPublication() {
               {comments[publication.id] && <Comments comments={comments[publication.id]} />}
               </div>
               <div class="card-footer">
-                <form action="#" method="post">
-                  <img class="img-fluid img-circle img-sm" src="../dist/img/user4-128x128.jpg" alt="Alt Text" />
-                  <div class="img-push">
-                    <input type="text" class="form-control form-control-sm" placeholder="Press enter to post comment" />
-                  </div>
-                </form>
+                 <PostComment  publicationId={publication.id} getpublications={getpublications} comments={comments} setComments={setComments} />
               </div>
 
             </div>
           </div>
-        </div>
+        </div> 
       )
       
   )
