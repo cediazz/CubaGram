@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 
-function PostComments(props) {
+function Comments(props) {
 
     return (
         props.comments.map(comment => 
@@ -17,4 +17,4 @@ function PostComments(props) {
     )
     )
 }
-export default PostComments
+export default Comments

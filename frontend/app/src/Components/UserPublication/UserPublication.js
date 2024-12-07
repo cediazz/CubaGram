@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import PostComments from "../PostComments/PostComments";
+import Comments from "../PostComments/PostComments";
 import Loading from "../Loading/Loading";
 import getPublications from "../../utils/getPublications";
 import Swal from 'sweetalert2'
@@ -13,7 +13,7 @@ function UserPublication() {
   const navigate = useNavigate()
   const [loading, setLoading] = useState()
   const [publications, setPublications] = useState()
-  const [comments, setComments] = useState()
+  const [comments, setComments] = useState({})
 
   async function getpublications() {
 
@@ -77,7 +77,7 @@ function UserPublication() {
               <div class="card-body">
                 {publication.image && <img class="img-fluid pad" src={publication.image} alt="" />}
                 <p>{publication.content}</p>
-                <CommentButton publicationId={publication.id} setComments={setComments} />
+                <CommentButton publicationId={publication.id} comments={comments} setComments={setComments} />
                 <LikeButton
                   publicationId={publication.id}
                   getpublications={getpublications}
@@ -86,9 +86,8 @@ function UserPublication() {
                 <span class="float-right text-muted">{publication.numb_likes} me gusta- {publication.numb_comm} comentarios</span>
               </div>
               <div class="card-footer card-comments">
-                {comments && <PostComments comments={comments} /> }
+              {comments[publication.id] && <Comments comments={comments[publication.id]} />}
               </div>
-
               <div class="card-footer">
                 <form action="#" method="post">
                   <img class="img-fluid img-circle img-sm" src="../dist/img/user4-128x128.jpg" alt="Alt Text" />
@@ -102,7 +101,7 @@ function UserPublication() {
           </div>
         </div>
       )
-
+      
   )
 }
 export default UserPublication

@@ -18,7 +18,7 @@ function CommentButton(props) {
                 navigate('/login');
             }
             if (res.length != 0)
-            props.setComments(res)
+            props.setComments({...props.comments,[props.publicationId]:res})
             else
             Swal.fire({
                 icon: "info",
