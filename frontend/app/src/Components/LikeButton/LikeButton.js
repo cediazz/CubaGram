@@ -7,16 +7,15 @@ function LikeButton(props) {
     const navigate = useNavigate()
 
     async function likeManagement() {
-        props.setLoading(true)
+        
         try{
             let res = await createLike(props.publicationId)
             console.log(res)
             if (res == 401){
-                props.setLoading(false)
                 navigate('/login');
               }
               props.getpublications() //update publications
-              props.setLoading(false)
+              
             }
             catch (error) {
                 Swal.fire({
@@ -25,7 +24,7 @@ function LikeButton(props) {
                     text: error.message,
                     confirmButtonColor: '#F27474'
                 });
-                props.setLoading(false)
+                
             }
         
 
@@ -35,9 +34,10 @@ function LikeButton(props) {
 
         <button
             type="button"
-            class="btn btn-default btn-sm"
+            className={props.userLiked ? 'btn-success btn  btn-sm' : 'btn btn-default btn-sm'}
             onClick={() => likeManagement()}>
-            <i class="far fa-thumbs-up"></i> Like
+            <i className={props.userLiked ? 'fas fa-thumbs-up' : 'far fa-thumbs-up'}></i>
+             Me gusta
         </button>
 
     )
