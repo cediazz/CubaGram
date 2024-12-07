@@ -6,6 +6,7 @@ import getPublications from "../../utils/getPublications";
 import Swal from 'sweetalert2'
 import { Link } from "react-router-dom"
 import LikeButton from "../LikeButton/LikeButton";
+import CommentButton from "../CommentButton/CommentButton";
 
 function UserPublication() {
 
@@ -76,7 +77,7 @@ function UserPublication() {
               <div class="card-body">
                 {publication.image && <img class="img-fluid pad" src={publication.image} alt="" />}
                 <p>{publication.content}</p>
-                <button type="button" class="btn btn-default btn-sm"><i class="fas fa-share"></i> Share</button>
+                <CommentButton publicationId={publication.id} setComments={setComments} />
                 <LikeButton
                   publicationId={publication.id}
                   getpublications={getpublications}
@@ -85,7 +86,7 @@ function UserPublication() {
                 <span class="float-right text-muted">{publication.numb_likes} me gusta- {publication.numb_comm} comentarios</span>
               </div>
               <div class="card-footer card-comments">
-                {comments && <PostComments />}
+                {comments && <PostComments comments={comments} />}
               </div>
 
               <div class="card-footer">

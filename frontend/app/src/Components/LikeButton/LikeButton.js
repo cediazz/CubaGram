@@ -36,8 +36,7 @@ function LikeButton(props) {
             type="button"
             className={props.userLiked ? 'btn-success btn  btn-sm' : 'btn btn-default btn-sm'}
             onClick={() => likeManagement()}>
-            <i className={props.userLiked ? 'fas fa-thumbs-up' : 'far fa-thumbs-up'}></i>
-             Me gusta
+            <i className={props.userLiked ? 'fas fa-thumbs-up' : 'far fa-thumbs-up'}></i> Me gusta
         </button>
 
     )
