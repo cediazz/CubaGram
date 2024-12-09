@@ -85,7 +85,6 @@ function UserPublication() {
                 <CommentButton publicationId={publication.id} comments={comments} setComments={setComments} />
                 <LikeButton
                   publicationId={publication.id}
-                  getpublications={getpublications}
                   userLiked={publication.user_liked}
                   setPublications={setPublications}
                 />
@@ -95,7 +94,7 @@ function UserPublication() {
                 {comments[publication.id] && <Comments comments={comments[publication.id]} />}
               </div>
               <div class="card-footer">
-                <PostComment publicationId={publication.id} getpublications={getpublications} comments={comments} setComments={setComments} />
+                <PostComment publicationId={publication.id} setPublications={setPublications} comments={comments} setComments={setComments} />
               </div>
 
             </div>

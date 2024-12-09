@@ -29,12 +29,18 @@ function PostComment(props) {
                 setLoading(false)
                 navigate('/login');
             }
-            else {
-                props.getpublications()  //update publications
+            else { //se inserto un comentario
                 let comments = await getComments(props.publicationId)
                 props.setComments({...props.comments,[props.publicationId]:comments}) //update comments
+                //actualizar cantidad de comentarios a la publicacion
+                props.setPublications(prev =>
+                    prev.map(publication =>
+                      publication.id === props.publicationId
+                        ? { ...publication, numb_comm: publication.numb_comm + 1,} 
+                        : publication
+                    )
+                  )
                 setLoading(false)
-
             }
 
         }
