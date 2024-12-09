@@ -87,7 +87,7 @@ function UserPublication() {
                   publicationId={publication.id}
                   getpublications={getpublications}
                   userLiked={publication.user_liked}
-                  
+                  setPublications={setPublications}
                 />
                 <span class="float-right text-muted">{publication.numb_likes} me gusta- {publication.numb_comm} comentarios</span>
               </div>

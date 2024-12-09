@@ -14,10 +14,26 @@ function LikeButton(props) {
             if (res == 401){
                 navigate('/login');
               }
-              props.getpublications() //update publications
-              
-              
+            else if (res == ""){  //si el like fue eliminado
+                props.setPublications(prev =>
+                    prev.map(publication =>
+                      publication.id === props.publicationId
+                        ? { ...publication, numb_likes: publication.numb_likes - 1, user_liked: false } 
+                        : publication
+                    )
+                  )
             }
+            else{ // si no fue eliminado, se inserto un like
+                props.setPublications(prev =>
+                    prev.map(publication =>
+                      publication.id === props.publicationId
+                        ? { ...publication, numb_likes: publication.numb_likes + 1, user_liked: true } 
+                        : publication
+                    )
+                  )
+            }
+            
+        }
             catch (error) {
                 Swal.fire({
                     icon: "error",

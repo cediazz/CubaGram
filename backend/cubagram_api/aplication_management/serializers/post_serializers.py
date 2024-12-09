@@ -2,7 +2,6 @@ from rest_framework.serializers import ModelSerializer
 from ..models import Post,Comment,Like
 from user_management.serializers import UserSerializer
 from .comments_serializers import CommentSerializer
-from .like_serializers import LikeSerializer
 from rest_framework import serializers
 from user_management.models import CustomUser
 from cubagram_api.utils import format_date_HMS

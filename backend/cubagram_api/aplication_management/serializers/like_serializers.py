@@ -5,6 +5,7 @@ from user_management.serializers import UserSerializer
 
 class LikeSerializer(ModelSerializer):
 
+   
     
     class Meta:
         model = Like
