@@ -1,7 +1,6 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useState } from 'react';
-import updateUser from '../../utils/updateUser';
 import { useNavigate } from "react-router-dom";
 import Loading from "../Loading/Loading";
 import AlertServer from "../AlertServer/AlertServer";

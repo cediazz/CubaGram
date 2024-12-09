@@ -1,13 +1,13 @@
 import axios from 'axios'
 
 
-async function getPublications(){
+async function getPublications(pageNumber){
 
     const accessToken = localStorage.getItem('access');
     const refreshToken = localStorage.getItem('refresh');
  
     try{
-        let res = await axios.get(`http://127.0.0.1:8000/posts/`,{
+        let res = await axios.get(`http://127.0.0.1:8000/posts/?page=${pageNumber}`,{
             headers: {
                 Authorization: `Bearer ${accessToken}`,
             },
@@ -25,7 +25,7 @@ async function getPublications(){
                     localStorage.setItem('access', newAccessToken);
                     localStorage.setItem('refresh', newrefreshToken);
     
-                    const retryResponse = await axios.get(`http://127.0.0.1:8000/posts/`,{
+                    const retryResponse = await axios.get(`http://127.0.0.1:8000/posts/?page=${pageNumber}`,{
                         headers: {
                             Authorization: `Bearer ${newAccessToken}`,
                         },

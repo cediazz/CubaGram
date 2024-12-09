@@ -16,6 +16,7 @@ function LikeButton(props) {
               }
               props.getpublications() //update publications
               
+              
             }
             catch (error) {
                 Swal.fire({

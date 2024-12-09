@@ -13,7 +13,7 @@ class PostView(viewsets.ModelViewSet):
               .annotate(numb_comm = Count('comments',distinct=True),numb_likes = Count('likes',distinct=True))
     serializer_class = PostSerializer
     permission_classes = [IsAuthenticated]
-    pagination_class = None
+    #pagination_class = None
     filterset_class = PostFilter
 
    

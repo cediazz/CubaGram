@@ -13,20 +13,24 @@ function UserPublication() {
 
   const navigate = useNavigate()
   const [loading, setLoading] = useState()
-  const [publications, setPublications] = useState()
+  const [publications, setPublications] = useState([])
   const [comments, setComments] = useState({})
+  const [page, setPage] = useState(1)
+  const [hasMore, setHasMore] = useState(true)
 
   async function getpublications() {
-
+    
+    setLoading(true)
     try {
-      let res = await getPublications()
+      let res = await getPublications(page)
       console.log(res)
       if (res == 401) {
         setLoading(false)
         navigate('/login');
       }
       else {
-        setPublications(res)
+        setPublications(prev => [...prev, ...res.results])
+        setHasMore(res.next !== null); // Verifica si hay más publicaciones
         setLoading(false)
       }
     }
@@ -44,7 +48,7 @@ function UserPublication() {
   }
 
   useEffect(() => {
-    setLoading(true)
+
     if (!localStorage.getItem('username'))
       navigate("/login")
     else {
@@ -52,11 +56,11 @@ function UserPublication() {
 
     }
 
-  }, [])
+  }, [page])
 
   return (
-    loading == true ? <Loading /> :
-      publications && publications.map(publication =>
+    <div>
+      {publications && publications.map(publication =>
         <div class="row d-flex justify-content-center">
           <div class="col-md-10">
             <div class="card card-widget">
@@ -83,21 +87,32 @@ function UserPublication() {
                   publicationId={publication.id}
                   getpublications={getpublications}
                   userLiked={publication.user_liked}
+                  
                 />
                 <span class="float-right text-muted">{publication.numb_likes} me gusta- {publication.numb_comm} comentarios</span>
               </div>
               <div class="card-footer card-comments">
-              {comments[publication.id] && <Comments comments={comments[publication.id]} />}
+                {comments[publication.id] && <Comments comments={comments[publication.id]} />}
               </div>
               <div class="card-footer">
-                 <PostComment  publicationId={publication.id} getpublications={getpublications} comments={comments} setComments={setComments} />
+                <PostComment publicationId={publication.id} getpublications={getpublications} comments={comments} setComments={setComments} />
               </div>
 
             </div>
           </div>
-        </div> 
-      )
-      
+        </div>
+      )}
+      <row className="mt-3" >
+        <div style={{ textAlign: "center" }}>
+          {loading == true ? <Loading /> : hasMore &&
+            <button type="button"
+              className={'btn-info btn btn-sm'}
+              onClick={() => setPage(prev => prev + 1)}>
+              <i className={'fas fa-angle-down'}></i> Ver más publicaciones
+            </button>}
+        </div>
+      </row>
+    </div>
   )
 }
 export default UserPublication
