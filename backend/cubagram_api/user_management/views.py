@@ -6,13 +6,15 @@ from .serializers import UserSerializer,MyTokenObtainPairSerializer,UserCreateSe
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .permissions import IsAuthenticatedOrCreate
 from rest_framework import status
+from django.db.models import Count
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 
 
 class UserView(viewsets.ModelViewSet):
-    queryset = CustomUser.objects.all()
+    queryset = CustomUser.objects \
+               .annotate(numb_followers = Count('followers',distinct=True),numb_followed = Count('followed_by',distinct=True))
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticatedOrCreate]
 

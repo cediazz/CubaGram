@@ -22,10 +22,12 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 class UserSerializer(ModelSerializer):
     
     followed_user = serializers.SerializerMethodField()
+    numb_followers = serializers.IntegerField(read_only=True)
+    numb_followed = serializers.IntegerField(read_only=True)
     
     class Meta:
         model = CustomUser
-        fields = ['id','username','image','first_name','last_name','biography','education','location','followed_user']
+        fields = ['id','username','image','first_name','last_name','biography','education','location','followed_user','numb_followers','numb_followed']
     
     def get_followed_user(self, obj):
         request = self.context.get('request')

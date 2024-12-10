@@ -17,13 +17,10 @@ function InformationProfile(props){
 
                 <ul class="list-group list-group-unbordered mb-3">
                   <li class="list-group-item">
-                    <b>Seguidores</b> <a className="float-right">1,322</a>
+                    <b>Seguidores</b> <a className="float-right">{props.userData.numb_followed}</a>
                   </li>
                   <li class="list-group-item">
-                    <b>Siguiendo</b> <a className="float-right">543</a>
-                  </li>
-                  <li class="list-group-item">
-                    <b>Amigos</b> <a className="float-right">13,287</a>
+                    <b>Siguiendo</b> <a className="float-right">{props.userData.numb_followers}</a>
                   </li>
                 </ul>
 
