@@ -13,18 +13,19 @@ function Users() {
   const [users, setUsers] = useState([])
   const [cantUsers, setCantUsers] = useState()
   const [pageCount, setPageCount] = useState(0);
-  const itemsPerPage = 2;
-  
-  async function getusers(){
- 
-    try{
-    let res = await getUsers()
-    console.log(res)
-    if (res == 401){
+  const authenticatedUser = localStorage.getItem('user_id')
+  const itemsPerPage = 6;
+
+  async function getusers() {
+
+    try {
+      let res = await getUsers()
+      console.log(res)
+      if (res == 401) {
         setLoading(false)
         navigate('/login');
       }
-      else{
+      else {
         setCantUsers(res.count)
         setPageCount(Math.ceil(res.count / itemsPerPage))
         setUsers(res.results)
@@ -32,17 +33,17 @@ function Users() {
       }
     }
     catch (error) {
-        Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: error.message,
-            confirmButtonColor: '#F27474'
-        });
-        setLoading(false)
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: error.message,
+        confirmButtonColor: '#F27474'
+      });
+      setLoading(false)
     }
-    
 
-}
+
+  }
 
   useEffect(() => {
     setLoading(true)
@@ -58,28 +59,29 @@ function Users() {
 
   return (
     loading == true ? <Loading /> :
-    <>
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>Usuarios</h1>
+      <>
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1>Usuarios</h1>
+            </div>
           </div>
         </div>
-      </div>
-    <div class="card card-solid">
-        <div class="card-body pb-0">
-          <div class="row">
-            {users && users.map( user => <UsersCard user={user} /> )}
-          </div>
-
-          <div class="card-footer d-flex justify-content-center">
-          <MyPagination
-              setUsers={setUsers}
-              pageCount={pageCount}
-          />
+        <div class="card card-solid">
+          <div class="card-body pb-0">
+            <div class="row">
+              {users && users.map(
+                user => user.id != authenticatedUser && <UsersCard user={user} setUsers={setUsers} />
+              )}
+            </div>
+            <div class="card-footer d-flex justify-content-center">
+              <MyPagination
+                setUsers={setUsers}
+                pageCount={pageCount}
+              />
+            </div>
           </div>
         </div>
-      </div>
       </>
   )
 }
