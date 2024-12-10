@@ -16,7 +16,7 @@ function UserPublication() {
   const [publications, setPublications] = useState([])
   const [comments, setComments] = useState({})
   const [page, setPage] = useState(1)
-  const [hasMore, setHasMore] = useState(true)
+  const [hasMore, setHasMore] = useState(false)
 
   async function getpublications() {
     
@@ -28,10 +28,19 @@ function UserPublication() {
         setLoading(false)
         navigate('/login');
       }
-      else {
+      else if (res.count != 0) {
         setPublications(prev => [...prev, ...res.results])
         setHasMore(res.next !== null); // Verifica si hay más publicaciones
         setLoading(false)
+      }
+      else {
+        Swal.fire({
+          icon: "info",
+          title: "Información",
+          text: "No se econtraron publicaciones",
+          
+      })
+      setLoading(false)
       }
     }
     catch (error) {
