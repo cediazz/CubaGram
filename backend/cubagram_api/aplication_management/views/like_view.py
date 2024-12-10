@@ -9,7 +9,7 @@ from rest_framework.response import Response
 class LikeView(viewsets.ModelViewSet):
     queryset = Like.objects.order_by('like_date')
     serializer_class = LikeSerializer
-    #permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     pagination_class = None
     filterset_fields = {
         'post': ['exact'],

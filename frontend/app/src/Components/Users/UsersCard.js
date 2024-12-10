@@ -1,8 +1,36 @@
 import { Link } from "react-router-dom"
+import Swal from 'sweetalert2'
+import { useNavigate } from "react-router-dom";
+import createFollow from "../../utils/createFollow";
 
 function UsersCard(props){
 
-    const userPerfil = "/profile/" + props.user.id
+    const userProfile = "/profile/" + props.user.id
+    const navigate = useNavigate();
+
+    async function followManagement() {
+        
+      try{
+          let res = await createFollow(props.user.id)
+          console.log(res)
+          if (res == 401){
+              navigate('/login');
+            }
+          
+          
+      }
+          catch (error) {
+              Swal.fire({
+                  icon: "error",
+                  title: "Oops...",
+                  text: error.message,
+                  confirmButtonColor: '#F27474'
+              });
+              
+          }
+      
+
+  }
     
     return(
         <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column mt-3">
@@ -19,11 +47,11 @@ function UsersCard(props){
                 </div>
                 <div class="card-footer">
                   <div class="text-right">
-                    <button  class="btn btn-sm bg-teal mr-1">
+                    <button  class="btn btn-sm bg-teal mr-1" onClick={() => followManagement()}>
                       <i class="fas fa-user-plus"></i>
                       Seguir
                     </button>
-                    <Link to={userPerfil} class="btn btn-sm btn-primary">
+                    <Link to={userProfile} class="btn btn-sm btn-primary">
                       <i class="fas fa-user"></i> Ver perfil
                     </Link>
                   </div>

@@ -13,7 +13,7 @@ function Users() {
   const [users, setUsers] = useState([])
   const [cantUsers, setCantUsers] = useState()
   const [pageCount, setPageCount] = useState(0);
-  const itemsPerPage = 6;
+  const itemsPerPage = 2;
   
   async function getusers(){
  
