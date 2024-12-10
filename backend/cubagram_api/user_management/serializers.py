@@ -4,7 +4,7 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.contrib.auth import password_validation
 from django.core.exceptions import ValidationError
 from rest_framework import serializers
-
+from aplication_management.models import Follow
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     
@@ -21,10 +21,18 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 class UserSerializer(ModelSerializer):
     
+    followed_user = serializers.SerializerMethodField()
     
     class Meta:
         model = CustomUser
-        fields = ['id','username','image','first_name','last_name','biography','education','location']
+        fields = ['id','username','image','first_name','last_name','biography','education','location','followed_user']
+    
+    def get_followed_user(self, obj):
+        request = self.context.get('request')
+        if request and request.user.is_authenticated:
+            # Verificar si el usuario esta siendo seguido por el usuario autenticado
+            return Follow.objects.filter(follower=request.user,followed = obj.id).exists()
+        return False  
         
         
 
