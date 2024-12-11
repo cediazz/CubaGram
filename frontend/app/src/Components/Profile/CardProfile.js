@@ -23,7 +23,7 @@ function CardProfile(props) {
                 onClick={() => handleTabClick('activity')}
                 href="#"
               >
-                Actividad
+                Publicaciones
               </a>
             </li>
             {props.userData.id == user_id &&
