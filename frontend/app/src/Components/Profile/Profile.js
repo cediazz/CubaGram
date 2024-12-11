@@ -61,7 +61,7 @@ function Profile() {
         loading == true ? <Loading /> :
         <div class="row">
             <div class="col-md-3">
-                {userData && <InformationProfile userData={userData} />}
+                {userData && <InformationProfile userData={userData} setUserData={setUserData} />}
                 {userData && <AboutMe userData={userData} />}
             </div>
             <div class="col-md-9">

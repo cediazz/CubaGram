@@ -1,8 +1,50 @@
 import { Link } from "react-router-dom"
+import Swal from 'sweetalert2'
+import createFollow from "../../utils/createFollow"
+import { useNavigate } from "react-router-dom"
 
 function InformationProfile(props) {
 
   const user_id = localStorage.getItem('user_id')
+  const navigate = useNavigate();
+
+  async function followManagement() {
+
+    try {
+      let res = await createFollow(props.userData.id)
+      console.log(res)
+      if (res == 401) {
+        navigate('/login');
+      }
+      else if (res == ""){  //si el seguimiento fue eliminado
+        props.setUserData(
+          {...props.userData,
+            followed_user: false,
+            numb_followed: props.userData.numb_followed - 1
+          })
+    }
+    else{ // si no fue eliminado, se inserto un seguimiento
+      props.setUserData(
+        {...props.userData,
+          followed_user: true,
+          numb_followed: props.userData.numb_followed + 1
+        })
+    }
+
+
+    }
+    catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: error.message,
+        confirmButtonColor: '#F27474'
+      });
+
+    }
+
+
+  }
 
   return (
     <div class="card card-primary card-outline">
@@ -25,7 +67,7 @@ function InformationProfile(props) {
         </ul>
 
         {props.userData.id != user_id &&
-          <button className="btn btn-primary btn-block">
+          <button className="btn btn-primary btn-block" onClick={() => followManagement()}>
             {props.userData.followed_user ? (
               <>
                 <i className="fas fa-user-minus"></i> Dejar de seguir
