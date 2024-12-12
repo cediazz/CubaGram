@@ -65,7 +65,7 @@ function Profile() {
                 {userData && <AboutMe userData={userData} />}
             </div>
             <div class="col-md-9">
-                {userData && <CardProfile setLoading={setLoading} setUserData={setUserData} userData={userData} />}
+                {userData && <CardProfile setLoading={setLoading} setUserData={setUserData} userData={userData} userId={id}/>}
                 
             </div>
         </div>

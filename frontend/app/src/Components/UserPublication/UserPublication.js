@@ -9,7 +9,7 @@ import LikeButton from "../LikeButton/LikeButton";
 import CommentButton from "../CommentButton/CommentButton";
 import PostComment from "../PostComments/PostComments";
 
-function UserPublication() {
+function UserPublication(props) {
 
   const navigate = useNavigate()
   const [loading, setLoading] = useState()
@@ -17,12 +17,13 @@ function UserPublication() {
   const [comments, setComments] = useState({})
   const [page, setPage] = useState(1)
   const [hasMore, setHasMore] = useState(false)
+  const url = props.url ? `${props.url}?user=${props.userId}&page=${page}`:`http://127.0.0.1:8000/posts/?page=${page}`
 
   async function getpublications() {
-    
+    console.log(url)
     setLoading(true)
     try {
-      let res = await getPublications(page)
+      let res = await getPublications(url)
       console.log(res)
       if (res == 401) {
         setLoading(false)

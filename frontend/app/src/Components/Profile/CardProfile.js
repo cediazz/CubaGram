@@ -41,7 +41,7 @@ function CardProfile(props) {
         <div className="card-body">
           <div className="tab-content">
             <div className={activeTab === 'activity' ? 'tab-pane active' : 'tab-pane'} id="activity">
-              <PublicationsProfile />
+              {activeTab === 'activity' && <PublicationsProfile userId={props.userId} />}
             </div>
             {props.userData.id == user_id &&
               <div className={activeTab === 'settings' ? 'tab-pane active' : 'tab-pane'} id="settings">

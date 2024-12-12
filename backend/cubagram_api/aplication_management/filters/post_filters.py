@@ -6,7 +6,7 @@ class PostFilter(filters.FilterSet):
     
     class Meta:
         model = Post
-        fields = []
+        fields = ['user']
 
     def filter_queryset(self, queryset):
         user = self.request.user

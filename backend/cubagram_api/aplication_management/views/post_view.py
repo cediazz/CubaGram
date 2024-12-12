@@ -18,9 +18,10 @@ class PostView(viewsets.ModelViewSet):
     filterset_class = PostFilter
 
     @action(detail=False, methods=['GET'])
-    def get_posts_authenticated_user(self,request):
+    def get_posts_user(self,request):
+        user = request.query_params.get('user')
         posts = Post.objects \
-              .filter(user = request.user.id) \
+              .filter(user = user) \
               .order_by('-publication_date')\
               .annotate(numb_comm = Count('comments',distinct=True),numb_likes = Count('likes',distinct=True))
         page = self.paginate_queryset(posts)
