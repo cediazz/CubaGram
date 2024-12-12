@@ -77,7 +77,7 @@ function UserPublication(props) {
               <div class="card-header">
                 <div class="user-block">
                   <img class="img-circle" src={publication.user.image} alt="" />
-                  <span class="username"><Link to={"profile/" + publication.user.id}>{publication.user.first_name} {publication.user.last_name}</Link></span>
+                  <span class="username"><Link to={"/profile/" + publication.user.id}>{publication.user.first_name} {publication.user.last_name}</Link></span>
                   <span class="description">Publicado el {publication.publication_date}</span>
                 </div>
                 <div class="card-tools">
@@ -100,7 +100,7 @@ function UserPublication(props) {
                 />
                 <span class="float-right text-muted">{publication.numb_likes} me gusta- {publication.numb_comm} comentarios</span>
               </div>
-              <div class="card-footer card-comments">
+              <div class="card-footer card-comments overflow-auto" style={{ maxHeight: '200px' }}>
                 {comments[publication.id] && <Comments comments={comments[publication.id]} />}
               </div>
               <div class="card-footer">
