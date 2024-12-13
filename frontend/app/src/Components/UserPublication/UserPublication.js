@@ -17,7 +17,7 @@ function UserPublication(props) {
   const [comments, setComments] = useState({})
   const [page, setPage] = useState(1)
   const [hasMore, setHasMore] = useState(false)
-  const url = props.url ? `${props.url}?user=${props.userId}&page=${page}`:`http://127.0.0.1:8000/posts/?page=${page}`
+  const url = props.url ? `${props.url}?user=${props.userId}&page=${page}` : `http://127.0.0.1:8000/posts/?page=${page}`
 
   async function getpublications() {
     console.log(url)
@@ -31,7 +31,7 @@ function UserPublication(props) {
       }
       else if (res.count != 0) {
         setPublications(prev => [...prev, ...res.results])
-        setHasMore(res.next !== null); // Verifica si hay más publicaciones
+        setHasMore(res.next !== null) // Verifica si hay más publicaciones
         setLoading(false)
       }
       else {
@@ -39,9 +39,9 @@ function UserPublication(props) {
           icon: "info",
           title: "Información",
           text: "No se econtraron publicaciones",
-          
-      })
-      setLoading(false)
+
+        })
+        setLoading(false)
       }
     }
     catch (error) {
@@ -92,7 +92,6 @@ function UserPublication(props) {
               <div class="card-body">
                 {publication.image && <img class="img-fluid pad" src={publication.image} alt="" />}
                 <p>{publication.content}</p>
-                <CommentButton publicationId={publication.id} comments={comments} setComments={setComments} />
                 <LikeButton
                   publicationId={publication.id}
                   userLiked={publication.user_liked}
@@ -102,6 +101,9 @@ function UserPublication(props) {
               </div>
               <div class="card-footer card-comments overflow-auto" style={{ maxHeight: '200px' }}>
                 {comments[publication.id] && <Comments comments={comments[publication.id]} />}
+                <div style={{ textAlign: "center" }}>
+                {<CommentButton publicationId={publication.id} comments={comments} setComments={setComments} />}
+                </div>
               </div>
               <div class="card-footer">
                 <PostComment publicationId={publication.id} setPublications={setPublications} comments={comments} setComments={setComments} />

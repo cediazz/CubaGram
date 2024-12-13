@@ -1,13 +1,13 @@
 import axios from 'axios'
 
 
-async function getComments(postId){
+async function getComments(postId,page){
 
     const accessToken = localStorage.getItem('access');
     const refreshToken = localStorage.getItem('refresh');
  
     try{
-        let res = await axios.get(`http://localhost:8000/comments/?post=${postId}`,{
+        let res = await axios.get(`http://localhost:8000/comments/?post=${postId}&page=${page}`,{
             headers: {
                 Authorization: `Bearer ${accessToken}`,
             },
@@ -25,7 +25,7 @@ async function getComments(postId){
                     localStorage.setItem('access', newAccessToken);
                     localStorage.setItem('refresh', newrefreshToken);
     
-                    const retryResponse = await axios.get(`http://localhost:8000/comments/?post=${postId}`,{
+                    const retryResponse = await axios.get(`http://localhost:8000/comments/?post=${postId}&page=${page}`,{
                         headers: {
                             Authorization: `Bearer ${newAccessToken}`,
                         },
