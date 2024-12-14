@@ -11,7 +11,6 @@ function Users() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState()
   const [users, setUsers] = useState([])
-  const [cantUsers, setCantUsers] = useState()
   const [pageCount, setPageCount] = useState(0);
   const authenticatedUser = localStorage.getItem('user_id')
   const itemsPerPage = 6;
@@ -20,13 +19,11 @@ function Users() {
 
     try {
       let res = await getUsers()
-      console.log(res)
       if (res == 401) {
         setLoading(false)
         navigate('/login');
       }
       else {
-        setCantUsers(res.count)
         setPageCount(Math.ceil(res.count / itemsPerPage))
         setUsers(res.results)
         setLoading(false)

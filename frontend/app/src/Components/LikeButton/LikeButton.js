@@ -3,47 +3,46 @@ import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2'
 
 function LikeButton(props) {
-    
+
     const navigate = useNavigate()
 
     async function likeManagement() {
-        
-        try{
+
+        try {
             let res = await createLike(props.publicationId)
-            console.log(res)
-            if (res == 401){
+            if (res == 401) {
                 navigate('/login');
-              }
-            else if (res == ""){  //si el like fue eliminado
+            }
+            else if (res == "") {  //si el like fue eliminado
                 props.setPublications(prev =>
                     prev.map(publication =>
-                      publication.id === props.publicationId
-                        ? { ...publication, numb_likes: publication.numb_likes - 1, user_liked: false } 
-                        : publication
+                        publication.id === props.publicationId
+                            ? { ...publication, numb_likes: publication.numb_likes - 1, user_liked: false }
+                            : publication
                     )
-                  )
+                )
             }
-            else{ // si no fue eliminado, se inserto un like
+            else { // si no fue eliminado, se inserto un like
                 props.setPublications(prev =>
                     prev.map(publication =>
-                      publication.id === props.publicationId
-                        ? { ...publication, numb_likes: publication.numb_likes + 1, user_liked: true } 
-                        : publication
+                        publication.id === props.publicationId
+                            ? { ...publication, numb_likes: publication.numb_likes + 1, user_liked: true }
+                            : publication
                     )
-                  )
+                )
             }
-            
+
         }
-            catch (error) {
-                Swal.fire({
-                    icon: "error",
-                    title: "Oops...",
-                    text: error.message,
-                    confirmButtonColor: '#F27474'
-                });
-                
-            }
-        
+        catch (error) {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: error.message,
+                confirmButtonColor: '#F27474'
+            });
+
+        }
+
 
     }
 

@@ -7,12 +7,12 @@ import Loading from "../Loading/Loading";
 import AlertServer from "../AlertServer/AlertServer";
 import Swal from 'sweetalert2'
 
-function CreatePublication(props) {
+function CreatePublication() {
 
     const [loading, setLoading] = useState()
     const [errorsServer, seterrorsServer] = useState()
     const navigate = useNavigate();
-    
+
 
     const validationSchema = Yup.object().shape({
         content: Yup.string().required('se requiere contenido'),
@@ -27,10 +27,8 @@ function CreatePublication(props) {
     const handleSubmit = async (values) => {
         setLoading(true)
         seterrorsServer()
-        console.log(values)
         try {
             let res = await createPublication(values)
-            console.log(res)
             if (res == 401) {
                 setLoading(false)
                 navigate('/login');
@@ -40,14 +38,13 @@ function CreatePublication(props) {
                     title: "Buen trabajo!",
                     text: 'Publicación creada',
                     icon: "success",
-                    })
+                })
                 setLoading(false)
 
             }
 
         }
         catch (error) {
-            console.log(error)
             let serverErrors = []
             for (const key in error.response.data) {
                 error.response.data[key].forEach(error => {

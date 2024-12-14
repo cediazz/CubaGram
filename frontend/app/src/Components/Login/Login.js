@@ -28,14 +28,13 @@ function Login() {
         setLoading(true)
         try {
             let res = await authenticate(values)
-            console.log(res)
             if (res.status == 200) {
                 localStorage.setItem('refresh', res.data.refresh)
                 localStorage.setItem('access', res.data.access)
                 localStorage.setItem('username', res.data.username)
                 localStorage.setItem('image', res.data.image)
                 localStorage.setItem('user_id', res.data.id)
-                setUser({'username':res.data.username,'image':res.data.image}) //update authenticated user
+                setUser({ 'username': res.data.username, 'image': res.data.image }) //update authenticated user
                 setLoading(false)
                 navigate("/");
             } else if (res.status == 401) {

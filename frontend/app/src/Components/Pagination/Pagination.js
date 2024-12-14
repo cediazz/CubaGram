@@ -3,19 +3,14 @@ import getUsers from "../../utils/getUsers";
 
 
 function MyPagination(props) {
-    
-   
 
     const handlePageChange = async (event) => {
-        console.log(event)
         const page = event.selected + 1;
         let data = await getUsers(page)
         console.log(data)
         props.setUsers(data.results)
-       
-    };
 
-   
+    };
 
     return (
         <>

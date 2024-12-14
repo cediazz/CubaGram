@@ -20,11 +20,9 @@ function UserPublication(props) {
   const url = props.url ? `${props.url}?user=${props.userId}&page=${page}` : `http://127.0.0.1:8000/posts/?page=${page}`
 
   async function getpublications() {
-    console.log(url)
     setLoading(true)
     try {
       let res = await getPublications(url)
-      console.log(res)
       if (res == 401) {
         setLoading(false)
         navigate('/login');
@@ -90,8 +88,8 @@ function UserPublication(props) {
                 </div>
               </div>
               <div class="card-body">
-                {publication.image && <img class="img-fluid pad" src={publication.image} alt="" />}
-                <p>{publication.content}</p>
+                {publication.image && <img class="img-fluid pad" src={publication.image} alt="" width={800} />}
+                <p class="text-justify">{publication.content}</p>
                 <LikeButton
                   publicationId={publication.id}
                   userLiked={publication.user_liked}
@@ -102,7 +100,7 @@ function UserPublication(props) {
               <div class="card-footer card-comments overflow-auto" style={{ maxHeight: '200px' }}>
                 {comments[publication.id] && <Comments comments={comments[publication.id]} />}
                 <div style={{ textAlign: "center" }}>
-                {<CommentButton publicationId={publication.id} comments={comments} setComments={setComments} />}
+                  {<CommentButton publicationId={publication.id} comments={comments} setComments={setComments} />}
                 </div>
               </div>
               <div class="card-footer">

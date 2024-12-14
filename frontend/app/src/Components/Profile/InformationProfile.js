@@ -12,24 +12,25 @@ function InformationProfile(props) {
 
     try {
       let res = await createFollow(props.userData.id)
-      console.log(res)
       if (res == 401) {
         navigate('/login');
       }
-      else if (res == ""){  //si el seguimiento fue eliminado
+      else if (res == "") {  //si el seguimiento fue eliminado
         props.setUserData(
-          {...props.userData,
+          {
+            ...props.userData,
             followed_user: false,
             numb_followed: props.userData.numb_followed - 1
           })
-    }
-    else{ // si no fue eliminado, se inserto un seguimiento
-      props.setUserData(
-        {...props.userData,
-          followed_user: true,
-          numb_followed: props.userData.numb_followed + 1
-        })
-    }
+      }
+      else { // si no fue eliminado, se inserto un seguimiento
+        props.setUserData(
+          {
+            ...props.userData,
+            followed_user: true,
+            numb_followed: props.userData.numb_followed + 1
+          })
+      }
 
 
     }

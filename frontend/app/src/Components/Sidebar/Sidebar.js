@@ -21,10 +21,10 @@ function Sidebar() {
 
   return (
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
-      <a href="../../index3.html" class="brand-link">
+      <div class="brand-link">
         <img src={icons8} alt="" class="brand-image img-circle elevation-3" style={{ opacity: '.8' }} />
         <span class="brand-text font-weight-light">CubaGram</span>
-      </a>
+      </div>
       <div class="sidebar">
 
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
@@ -32,7 +32,7 @@ function Sidebar() {
             <img src={user.image} class="img-circle elevation-2" alt="" />
           </div>
           <div class="info">
-            <a href="#" class="d-block">{user.username}</a>
+            <a class="d-block">{user.username}</a>
           </div>
         </div>
         <div class="form-inline">

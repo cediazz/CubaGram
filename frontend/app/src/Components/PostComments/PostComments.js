@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Loading from "../Loading/Loading";
 import AlertServer from "../AlertServer/AlertServer";
 import postComment from '../../utils/postComment';
-import getComments from "../../utils/getComments";
+
 
 function PostComment(props) {
 
@@ -21,35 +21,32 @@ function PostComment(props) {
     const handleSubmit = async (values) => {
         setLoading(true)
         seterrorsServer()
-        console.log(values)
         try {
             let res = await postComment(props.publicationId, values)
-            console.log(res)
             if (res == 401) {
                 setLoading(false)
                 navigate('/login');
             }
             else { //se inserto un comentario
                 if (props.publicationId in props.comments)
-                //si existen comentarios para la publicacion se agrega los comentarios existentes junto al comentario nuevo
-                props.setComments(prev => ({ ...prev, [props.publicationId]: [...prev[props.publicationId], res] })) 
+                    //si existen comentarios para la publicacion se agrega los comentarios existentes junto al comentario nuevo
+                    props.setComments(prev => ({ ...prev, [props.publicationId]: [...prev[props.publicationId], res] }))
                 else
-                // si no hay comentarios se crea el comentario para cada publicacion y se mantienen los comentarios de otras publicaciones
-                props.setComments(prev => ({ ...prev, [props.publicationId]: [res] }))
+                    // si no hay comentarios se crea el comentario para cada publicacion y se mantienen los comentarios de otras publicaciones
+                    props.setComments(prev => ({ ...prev, [props.publicationId]: [res] }))
                 //actualizar cantidad de comentarios a la publicacion
                 props.setPublications(prev =>
                     prev.map(publication =>
-                      publication.id === props.publicationId
-                        ? { ...publication, numb_comm: publication.numb_comm + 1,} 
-                        : publication
+                        publication.id === props.publicationId
+                            ? { ...publication, numb_comm: publication.numb_comm + 1, }
+                            : publication
                     )
-                  )
+                )
                 setLoading(false)
             }
 
         }
         catch (error) {
-            console.log(error)
             let serverErrors = []
             for (const key in error.response.data) {
                 error.response.data[key].forEach(error => {

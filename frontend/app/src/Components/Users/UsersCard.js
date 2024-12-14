@@ -12,28 +12,27 @@ function UsersCard(props) {
 
     try {
       let res = await createFollow(props.user.id)
-      console.log(res)
       if (res == 401) {
         navigate('/login');
       }
-      else if (res == ""){  //si el seguimiento fue eliminado
+      else if (res == "") {  //si el seguimiento fue eliminado
         props.setUsers(prev =>
           prev.map(user =>
             user.id === props.user.id
-              ? { ...user, followed_user: false } 
+              ? { ...user, followed_user: false }
               : user
           )
         )
-    }
-    else{ // si no fue eliminado, se inserto un seguimiento
-      props.setUsers(prev =>
-        prev.map(user =>
-          user.id === props.user.id
-            ? { ...user, followed_user: true } 
-            : user
+      }
+      else { // si no fue eliminado, se inserto un seguimiento
+        props.setUsers(prev =>
+          prev.map(user =>
+            user.id === props.user.id
+              ? { ...user, followed_user: true }
+              : user
+          )
         )
-      )
-    }
+      }
 
 
     }

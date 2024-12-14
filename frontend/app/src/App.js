@@ -12,7 +12,7 @@ import CreatePublication from "./Components/CreatePublication/CreatePublication"
 
 function App() {
 
- return (
+  return (
     <UserProvider>
       <BrowserRouter>
         <div class="wrapper">

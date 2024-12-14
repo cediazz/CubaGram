@@ -12,10 +12,8 @@ function CommentButton(props) {
 
     async function commentManagement() {
         setLoading(true)
-        
         try {
             let res = await getComments(props.publicationId, page)
-            console.log(res)
             if (res == 401) {
                 setLoading(false)
                 navigate('/login');
