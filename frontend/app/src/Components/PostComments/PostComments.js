@@ -30,8 +30,12 @@ function PostComment(props) {
                 navigate('/login');
             }
             else { //se inserto un comentario
-                let comments = await getComments(props.publicationId)
-                props.setComments({...props.comments,[props.publicationId]:comments}) //update comments
+                if (props.publicationId in props.comments)
+                //si existen comentarios para la publicacion se agrega los comentarios existentes junto al comentario nuevo
+                props.setComments(prev => ({ ...prev, [props.publicationId]: [...prev[props.publicationId], res] })) 
+                else
+                // si no hay comentarios se crea el comentario para cada publicacion y se mantienen los comentarios de otras publicaciones
+                props.setComments(prev => ({ ...prev, [props.publicationId]: [res] }))
                 //actualizar cantidad de comentarios a la publicacion
                 props.setPublications(prev =>
                     prev.map(publication =>

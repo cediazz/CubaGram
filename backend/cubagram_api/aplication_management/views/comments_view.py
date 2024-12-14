@@ -8,7 +8,7 @@ from rest_framework import status
 class CommentView(viewsets.ModelViewSet):
     queryset = Comment.objects.order_by('-comment_date')
     serializer_class = CommentSerializer
-    permission_classes = [IsAuthenticated]
+    #permission_classes = [IsAuthenticated]
     #pagination_class = None
     filterset_fields = {
         'post': ['exact'],
