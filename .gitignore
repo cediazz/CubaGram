@@ -1,4 +1,5 @@
 venv
+.env
 frontend/app/node_modules
 frontend/app/public/assets
 backend/cubagram_api/Media
