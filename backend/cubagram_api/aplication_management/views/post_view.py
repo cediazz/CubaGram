@@ -12,6 +12,7 @@ from rest_framework.parsers import MultiPartParser, FormParser
 
 class PostView(viewsets.ModelViewSet):
     queryset = Post.objects \
+              .select_related('user')\
               .order_by('-publication_date')\
               .annotate(numb_comm = Count('comments',distinct=True),numb_likes = Count('likes',distinct=True))
     serializer_class = PostSerializer
