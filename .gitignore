@@ -1,5 +1,12 @@
+__pycache__/
+*.py[cod]
+*$py.class
+
 venv
+.venv
 .env
 frontend/app/node_modules
 frontend/app/public/assets
-backend/cubagram_api/Media
+backend/cubagram_api/Media/post_images
+backend/.venv
+backend/venv
