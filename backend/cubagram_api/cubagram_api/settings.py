@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from django.core.exceptions import ImproperlyConfigured
 from datetime import timedelta
 import os.path
 from decouple import config
@@ -22,14 +23,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = os.environ.get('SECRET_KEY', config('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', True)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [os.environ.get('RENDER_EXTERNAL_HOSTNAME', '*')]
 
-SITE_URL = config('SITE_URL')
+#SITE_URL = config('SITE_URL')
 
 # Application definition
 
@@ -82,8 +83,8 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'cubagram_api.urls'
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-
+    config('FRONTEND_HOST'),
+    config('DEPLOY_FRONTEND_HOST')
 ] 
 
 TEMPLATES = [
@@ -110,12 +111,8 @@ WSGI_APPLICATION = 'cubagram_api.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': config('ENGINE'),
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST'),
-        'PORT': config('DB_PORT'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -155,8 +152,20 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_URL = '/Media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'Media')
+# Crear la carpeta post_images si no existe dentro de la carpeta Media
+POST_IMAGES = os.path.join(MEDIA_ROOT,'post_images')
+try:
+    os.makedirs(POST_IMAGES, exist_ok=True)  
+    print(f"✓ Directorio '{POST_IMAGES}' creado/verificado.")
+except Exception as e:
+    raise ImproperlyConfigured(
+        f"Error al crear el directorio Documents: {str(e)}"
+    )
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
