@@ -33,7 +33,6 @@ class PostSerializer(ModelSerializer):
     
 
 class PostCreateSerializer(ModelSerializer):
-
     
     class Meta:
         model = Post
