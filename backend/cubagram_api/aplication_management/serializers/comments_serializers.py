@@ -33,7 +33,8 @@ class CommentCreateSerializer(ModelSerializer):
         user_data = UserSerializer(instance.user).data
         # Modificar la URL de la imagen para que sea completa
         if 'image' in user_data and user_data['image']:
-            user_data['image'] = urljoin(settings.SITE_URL, user_data['image'])
+            print(user_data['image'])
+            user_data['image'] = urljoin(settings.MEDIA_ROOT, user_data['image'])
         rep['user'] = user_data
         converted_date = format_date_HMS(rep['comment_date'])
         rep['comment_date'] = converted_date

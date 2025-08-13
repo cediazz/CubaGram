@@ -6,20 +6,26 @@ from rest_framework.response import Response
 from rest_framework import status
 
 class CommentView(viewsets.ModelViewSet):
-    queryset = Comment.objects.order_by('-comment_date')
+    queryset = Comment.objects.select_related('user','post').order_by('-comment_date')
     serializer_class = CommentSerializer
+    create_serializer_class = CommentCreateSerializer
     permission_classes = [IsAuthenticated]
-    #pagination_class = None
     filterset_fields = {
         'post': ['exact'],
     }
-
-    def create(self, request, *args, **kwargs):
-        serializer = CommentCreateSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+    
+    def get_serializer_class(self):
+        match self.action:
+            case "create":
+                return self.create_serializer_class
+            case "update" | "partial_update":
+                return self.create_serializer_class
+            case "retrieve":
+                return self.serializer_class
+            case "list":
+                return self.serializer_class
+            case _:
+                return self.serializer_class
     
 
    
