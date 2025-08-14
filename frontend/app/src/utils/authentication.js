@@ -2,8 +2,7 @@ import axios from 'axios'
 
 async function authenticate(credentials){
     try{
-        
-        let response = await axios.post('http://127.0.0.1:8000/login/',credentials)
+        let response = await axios.post(`${process.env.REACT_APP_BACKEND_HOST}/login/`,credentials)
         return response
     }
     catch(error){

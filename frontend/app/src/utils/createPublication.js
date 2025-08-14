@@ -13,7 +13,7 @@ async function createPublication(data){
     }
  
     try{
-        let res = await axios.post(`http://127.0.0.1:8000/posts/`,formData,{
+        let res = await axios.post(`${process.env.REACT_APP_BACKEND_HOST}/posts/`,formData,{
             headers: {
                 Authorization: `Bearer ${accessToken}`,
             },

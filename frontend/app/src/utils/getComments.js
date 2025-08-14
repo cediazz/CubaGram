@@ -7,7 +7,7 @@ async function getComments(postId,page){
     const refreshToken = localStorage.getItem('refresh');
  
     try{
-        let res = await axios.get(`http://localhost:8000/comments/?post=${postId}&page=${page}`,{
+        let res = await axios.get(`${process.env.REACT_APP_BACKEND_HOST}/comments/?post=${postId}&page=${page}`,{
             headers: {
                 Authorization: `Bearer ${accessToken}`,
             },

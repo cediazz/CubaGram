@@ -5,8 +5,8 @@ __pycache__/
 venv
 .venv
 .env
+frontend/app/.env
 frontend/app/node_modules
-frontend/app/public/assets
 backend/cubagram_api/Media/post_images
 backend/.venv
 backend/venv

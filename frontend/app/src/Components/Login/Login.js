@@ -17,7 +17,7 @@ function Login() {
     const [loading, setLoading] = useState()
     const { setUser } = useContext(UserContext)  //authenticated user
     const navigate = useNavigate();
-
+    
     const validationSchema = Yup.object().shape({
         username: Yup.string().required('se requiere nombre de usuario'),
         password: Yup.string().required('se requiere password'),

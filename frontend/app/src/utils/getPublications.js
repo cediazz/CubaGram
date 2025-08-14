@@ -18,7 +18,7 @@ async function getPublications(url){
         catch (error) {
             if (error.response && error.response.status === 401) {
                 try {
-                    const refreshResponse = await axios.post("http://127.0.0.1:8000/refresh-token/", {
+                    const refreshResponse = await axios.post(`${process.env.REACT_APP_BACKEND_HOST}/refresh-token/`, {
                         'refresh':`${refreshToken}`
                     });
                     const newAccessToken = refreshResponse.data.access;

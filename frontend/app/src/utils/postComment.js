@@ -11,7 +11,7 @@ async function postComment(postId,data){
     formData.append('user', userId);
     
     try{
-        let res = await axios.post(`http://localhost:8000/comments/`,formData,{
+        let res = await axios.post(`${process.env.REACT_APP_BACKEND_HOST}/comments/`,formData,{
             headers: {
                 Authorization: `Bearer ${accessToken}`,
             },
@@ -21,7 +21,7 @@ async function postComment(postId,data){
         catch (error) {
             if (error.response && error.response.status === 401) {
                 try {
-                    const refreshResponse = await axios.post("http://127.0.0.1:8000/refresh-token/", {
+                    const refreshResponse = await axios.post(`${process.env.REACT_APP_BACKEND_HOST}/refresh-token/`, {
                         'refresh':`${refreshToken}`
                     });
                     const newAccessToken = refreshResponse.data.access;
@@ -29,7 +29,7 @@ async function postComment(postId,data){
                     localStorage.setItem('access', newAccessToken);
                     localStorage.setItem('refresh', newrefreshToken);
     
-                    const retryResponse = await axios.post(`http://localhost:8000/comments/`,formData,{
+                    const retryResponse = await axios.post(`${process.env.REACT_APP_BACKEND_HOST}/comments/`,formData,{
                         headers: {
                             Authorization: `Bearer ${newAccessToken}`,
                         },

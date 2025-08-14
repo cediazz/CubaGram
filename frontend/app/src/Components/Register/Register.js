@@ -30,7 +30,7 @@ function Register() {
     const handleSubmit = async (values) => {
         setLoading(true)
         try {
-            let res = await axios.post('http://127.0.0.1:8000/users/', values)
+            let res = await axios.post(`${process.env.REACT_APP_BACKEND_HOST}/users/`, values)
             if (res.status == 201) {
                 Swal.fire({
                     title: "Buen trabajo!",

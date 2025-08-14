@@ -17,7 +17,7 @@ async function updateUser(id,data){
     }
  
     try{
-        let res = await axios.put(`http://127.0.0.1:8000/users/${id}/`,formData,{
+        let res = await axios.put(`${process.env.REACT_APP_BACKEND_HOST}/users/${id}/`,formData,{
             headers: {
                 Authorization: `Bearer ${accessToken}`,
             },
@@ -27,7 +27,7 @@ async function updateUser(id,data){
         catch (error) {
             if (error.response && error.response.status === 401) {
                 try {
-                    const refreshResponse = await axios.post("http://127.0.0.1:8000/refresh-token/", {
+                    const refreshResponse = await axios.post(`${process.env.REACT_APP_BACKEND_HOST}/refresh-token/`, {
                         'refresh':`${refreshToken}`
                     });
                     const newAccessToken = refreshResponse.data.access;
@@ -35,7 +35,7 @@ async function updateUser(id,data){
                     localStorage.setItem('access', newAccessToken);
                     localStorage.setItem('refresh', newrefreshToken);
     
-                    const retryResponse = await axios.put(`http://127.0.0.1:8000/users/${id}/`,formData,{
+                    const retryResponse = await axios.put(`${process.env.REACT_APP_BACKEND_HOST}/users/${id}/`,formData,{
                         headers: {
                             Authorization: `Bearer ${newAccessToken}`,
                         },

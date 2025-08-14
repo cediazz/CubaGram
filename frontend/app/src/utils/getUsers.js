@@ -7,7 +7,7 @@ async function getUsers(pageNumber = 1){
     const refreshToken = localStorage.getItem('refresh');
  
     try{
-        let res = await axios.get(`http://127.0.0.1:8000/users/?page=${pageNumber}`,{
+        let res = await axios.get(`${process.env.REACT_APP_BACKEND_HOST}/users/?page=${pageNumber}`,{
             headers: {
                 Authorization: `Bearer ${accessToken}`,
             },
@@ -17,7 +17,7 @@ async function getUsers(pageNumber = 1){
         catch (error) {
             if (error.response && error.response.status === 401) {
                 try {
-                    const refreshResponse = await axios.post("http://127.0.0.1:8000/refresh-token/", {
+                    const refreshResponse = await axios.post(`${process.env.REACT_APP_BACKEND_HOST}/refresh-token/`, {
                         'refresh':`${refreshToken}`
                     });
                     const newAccessToken = refreshResponse.data.access;
@@ -25,7 +25,7 @@ async function getUsers(pageNumber = 1){
                     localStorage.setItem('access', newAccessToken);
                     localStorage.setItem('refresh', newrefreshToken);
     
-                    const retryResponse = await axios.get(`http://127.0.0.1:8000/users/?page=${pageNumber}`,{
+                    const retryResponse = await axios.get(`${process.env.REACT_APP_BACKEND_HOST}/users/?page=${pageNumber}`,{
                         headers: {
                             Authorization: `Bearer ${newAccessToken}`,
                         },

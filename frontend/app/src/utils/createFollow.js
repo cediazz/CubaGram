@@ -10,7 +10,7 @@ async function createFollow(followedId){
     formData.append('followed', followedId);
    
     try{
-        let res = await axios.post(`http://127.0.0.1:8000/follows/`,formData,{
+        let res = await axios.post(`${process.env.REACT_APP_BACKEND_HOST}/follows/`,formData,{
             headers: {
                 Authorization: `Bearer ${accessToken}`,
             },

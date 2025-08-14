@@ -17,7 +17,7 @@ function UserPublication(props) {
   const [comments, setComments] = useState({})
   const [page, setPage] = useState(1)
   const [hasMore, setHasMore] = useState(false)
-  const url = props.url ? `${props.url}?user=${props.userId}&page=${page}` : `http://127.0.0.1:8000/posts/?page=${page}`
+  const url = props.url ? `${props.url}?user=${props.userId}&page=${page}` : `${process.env.REACT_APP_BACKEND_HOST}/posts/?page=${page}`
 
   async function getpublications() {
     setLoading(true)

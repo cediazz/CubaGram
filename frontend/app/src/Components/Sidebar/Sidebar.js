@@ -51,7 +51,7 @@ function Sidebar() {
               <Link class="nav-link" to='/'>
                 <i class="nav-icon fas fa-home"></i>
                 <p>
-                  Principal
+                  Publicaciones
                 </p>
               </Link>
             </li>
