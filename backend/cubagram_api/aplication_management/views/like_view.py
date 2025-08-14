@@ -10,6 +10,7 @@ class LikeView(viewsets.ModelViewSet):
     queryset = Like.objects.select_related('user','post').order_by('like_date')
     serializer_class = LikeSerializer
     permission_classes = [IsAuthenticated]
+    pagination_class = None
     filterset_fields = {
         'post': ['exact'],
     }
