@@ -84,8 +84,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'cubagram_api.urls'
 
 CORS_ALLOWED_ORIGINS = [
-    config('FRONTEND_HOST'),
-    config('DEPLOY_FRONTEND_HOST')
+    config('FRONTEND_HOST')
 ] 
 
 TEMPLATES = [
