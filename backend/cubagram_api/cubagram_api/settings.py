@@ -28,7 +28,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', config('SECRET_KEY'))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', True)
 
-ALLOWED_HOSTS = [os.environ.get('RENDER_EXTERNAL_HOSTNAME', 'localhost'),'127.0.0.1']
+ALLOWED_HOSTS = [os.environ.get('RENDER_EXTERNAL_HOSTNAME', '*')]
 
 #SITE_URL = config('SITE_URL')
 
@@ -160,6 +160,10 @@ if not DEBUG:
     # Enable the WhiteNoise storage backend, which compresses static files to reduce disk use
     # and renames the files with unique names for each version to support long-term caching
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    
+    BASE_URL = f"https://{os.environ.get('RENDER_EXTERNAL_HOSTNAME', '')}"
+
+BASE_URL = 'http://127.0.0.1:8000'
 
 MEDIA_URL = '/Media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'Media')

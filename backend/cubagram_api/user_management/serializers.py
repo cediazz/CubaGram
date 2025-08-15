@@ -16,7 +16,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         access = refresh.access_token
         data['id'] = self.user.id  
         data["username"] = self.user.username
-        data["image"] = f"http://{settings.ALLOWED_HOSTS[0]}:8000{self.user.image.url}"
+        data["image"] = f"{settings.BASE_URL}{self.user.image.url}"
         return data
 
 
