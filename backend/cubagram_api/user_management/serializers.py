@@ -37,9 +37,6 @@ class UserSerializer(ModelSerializer):
         return False  
         
         
-
-    
-
 class UserCreateSerializer(ModelSerializer):
     
     
@@ -61,6 +58,13 @@ class UserCreateSerializer(ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
+
+
+class UserUpdateSerializer(ModelSerializer):
+    
+    class Meta:
+        model = CustomUser
+        fields = ['username','image','first_name','last_name','biography','education','location']
     
    
     

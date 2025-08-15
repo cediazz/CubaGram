@@ -2,7 +2,7 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from .models import CustomUser
-from .serializers import UserSerializer,MyTokenObtainPairSerializer,UserCreateSerializer
+from .serializers import UserSerializer,MyTokenObtainPairSerializer,UserCreateSerializer,UserUpdateSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .permissions import IsAuthenticatedOrCreate
 from rest_framework import status
@@ -17,6 +17,7 @@ class UserView(viewsets.ModelViewSet):
                .annotate(numb_followers = Count('followers',distinct=True),numb_followed = Count('followed_by',distinct=True))
     serializer_class = UserSerializer
     create_serializer_class = UserCreateSerializer
+    update_serializer_class = UserUpdateSerializer
     permission_classes = [IsAuthenticatedOrCreate]
     
     def get_serializer_class(self):
@@ -24,7 +25,7 @@ class UserView(viewsets.ModelViewSet):
             case "create":
                 return self.create_serializer_class
             case "update" | "partial_update":
-                return self.create_serializer_class
+                return self.update_serializer_class
             case "retrieve":
                 return self.serializer_class
             case "list":
