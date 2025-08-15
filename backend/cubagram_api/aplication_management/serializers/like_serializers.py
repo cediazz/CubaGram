@@ -20,7 +20,8 @@ class LikeSerializer(ModelSerializer):
         user_data = UserSerializer(instance.user).data
         if 'image' in user_data and user_data['image']:
             user_data['image'] = urljoin(
-                os.environ.get('RENDER_EXTERNAL_HOSTNAME', 'http://127.0.0.1:8000'), 
+                #os.environ.get('RENDER_EXTERNAL_HOSTNAME', 'http://127.0.0.1:8000'), 
+                f"http://{settings.ALLOWED_HOSTS[0]}:8000",
                 user_data['image']
                 )
         representation['user'] = user_data

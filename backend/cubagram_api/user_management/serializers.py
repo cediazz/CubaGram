@@ -5,6 +5,7 @@ from django.contrib.auth import password_validation
 from django.core.exceptions import ValidationError
 from rest_framework import serializers
 from aplication_management.models import Follow
+from django.conf import settings
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     
@@ -15,7 +16,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         access = refresh.access_token
         data['id'] = self.user.id  
         data["username"] = self.user.username
-        data["image"] = f"http://127.0.0.1:8000{self.user.image.url}"
+        data["image"] = f"http://{settings.ALLOWED_HOSTS[0]}:8000{self.user.image.url}"
         return data
 
 
