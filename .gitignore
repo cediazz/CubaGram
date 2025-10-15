@@ -7,6 +7,5 @@ venv
 .env
 frontend/app/.env
 frontend/app/node_modules
-backend/cubagram_api/Media/post_images
 backend/.venv
 backend/venv
