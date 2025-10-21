@@ -17,7 +17,38 @@ function UserPublication(props) {
   const [comments, setComments] = useState({})
   const [page, setPage] = useState(1)
   const [hasMore, setHasMore] = useState(false)
+  const [sockets, setSockets] = useState({})
   const url = props.url ? `${props.url}?user=${props.userId}&page=${page}` : `${process.env.REACT_APP_BACKEND_HOST}/posts/?page=${page}`
+
+  function addSockets(publications) {
+    publications.forEach(publication => {
+      
+      const newSocket = new WebSocket(`${process.env.REACT_APP_WS_HOST}/ws/posts/${publication.id}/`)
+      console.log(newSocket)
+      
+      newSocket.onopen = () => {
+        console.log(`✅ WebSocket conectado para post ${publication.id}`)
+      }
+
+      newSocket.onerror = (error) => {
+        console.error(`❌ Error WebSocket post ${publication.id}:`, error)
+      }
+      
+      setSockets(prevSockets => ({
+        ...prevSockets,
+        [publication.id]: newSocket,
+      }))
+      console.log(sockets)
+
+      newSocket.onmessage = (event) => {
+        const data = JSON.parse(event.data)
+        //setComments()
+      }
+    })
+
+
+
+  }
 
   async function getpublications() {
     setLoading(true)
@@ -29,6 +60,7 @@ function UserPublication(props) {
       }
       else if (res.count != 0) {
         setPublications(prev => [...prev, ...res.results])
+        addSockets(res.results)
         setHasMore(res.next !== null) // Verifica si hay más publicaciones
         setLoading(false)
       }
@@ -104,7 +136,13 @@ function UserPublication(props) {
                 </div>
               </div>
               <div class="card-footer">
-                <PostComment publicationId={publication.id} setPublications={setPublications} comments={comments} setComments={setComments} />
+                <PostComment
+                  publicationId={publication.id}
+                  setPublications={setPublications}
+                  comments={comments}
+                  setComments={setComments}
+                  sockets={sockets}
+                />
               </div>
 
             </div>

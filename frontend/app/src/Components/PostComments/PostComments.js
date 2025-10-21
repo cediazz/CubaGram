@@ -21,13 +21,17 @@ function PostComment(props) {
     const handleSubmit = async (values) => {
         setLoading(true)
         seterrorsServer()
+        console.log(values)
         try {
             let res = await postComment(props.publicationId, values)
+            console.log(res)
             if (res == 401) {
                 setLoading(false)
                 navigate('/login');
             }
+            
             else { //se inserto un comentario
+                props.sockets[props.publicationId].send(JSON.stringify({...res,type: 'new_comment'}))
                 if (props.publicationId in props.comments)
                     //si existen comentarios para la publicacion se agrega los comentarios existentes junto al comentario nuevo
                     props.setComments(prev => ({ ...prev, [props.publicationId]: [...prev[props.publicationId], res] }))

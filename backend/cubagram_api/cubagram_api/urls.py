@@ -46,4 +46,5 @@ urlpatterns += static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)
 
 websocket_urlpatterns = [
     re_path(r'ws/posts/(?P<post_id>\w+)/$', consumers.PostConsumer.as_asgi()),
+    #path('wsposts/<int:post_id>', consumers.PostConsumer.as_asgi()),
 ]
