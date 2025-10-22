@@ -32,31 +32,18 @@ class PostConsumer(AsyncWebsocketConsumer):
         text_data_json = json.loads(text_data)
         message_type = text_data_json['type']
         
-        if message_type == 'new_comment':
+        if message_type == 'comment_message':
             await self.handle_new_comment(text_data_json)
         elif message_type == 'new_like':
             await self.handle_new_like(text_data_json)
 
     # Manejar nuevo comentario
     async def handle_new_comment(self, data):
-        comment = await self.create_comment(data)
-        
         # Enviar a todos en el grupo
         await self.channel_layer.group_send(
             self.room_group_name,
-            {
-                'type': 'comment_message',
-                'comment': {
-                    'id': comment.id,
-                    'content': comment.content,
-                    'user': {
-                        'id': comment.user.id,
-                        'username': comment.user.username,
-                        'profile_picture': comment.user.profile_picture.url if comment.user.profile_picture else None
-                    },
-                    'comment_date': comment.comment_date.isoformat()
-                }
-            }
+            data
+            
         )
 
     # Manejar nuevo like
@@ -72,14 +59,9 @@ class PostConsumer(AsyncWebsocketConsumer):
         )
 
     # Recibir mensajes del grupo
-    async def comment_message(self, event):
-        comment = event['comment']
-        
+    async def comment_message(self, data):
         # Enviar al WebSocket
-        await self.send(text_data=json.dumps({
-            'type': 'new_comment',
-            'comment': comment
-        }))
+        await self.send(text_data=json.dumps(data))
 
     async def like_message(self, event):
         like = event['like']
@@ -88,19 +70,6 @@ class PostConsumer(AsyncWebsocketConsumer):
             'type': 'like_update',
             'like': like
         }))
-
-    # Métodos de base de datos
-    @database_sync_to_async
-    def create_comment(self, data):
-        user = CustomUser.objects.get(id=data['user_id'])
-        post = Post.objects.get(id=data['post_id'])
-        
-        comment = Comment.objects.create(
-            post=post,
-            user=user,
-            content=data['content']
-        )
-        return comment
 
     @database_sync_to_async
     def toggle_like(self, data):

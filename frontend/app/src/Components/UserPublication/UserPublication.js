@@ -22,10 +22,10 @@ function UserPublication(props) {
 
   function addSockets(publications) {
     publications.forEach(publication => {
-      
+
       const newSocket = new WebSocket(`${process.env.REACT_APP_WS_HOST}/ws/posts/${publication.id}/`)
-      console.log(newSocket)
-      
+
+
       newSocket.onopen = () => {
         console.log(`✅ WebSocket conectado para post ${publication.id}`)
       }
@@ -33,17 +33,11 @@ function UserPublication(props) {
       newSocket.onerror = (error) => {
         console.error(`❌ Error WebSocket post ${publication.id}:`, error)
       }
-      
+
       setSockets(prevSockets => ({
         ...prevSockets,
         [publication.id]: newSocket,
       }))
-      console.log(sockets)
-
-      newSocket.onmessage = (event) => {
-        const data = JSON.parse(event.data)
-        //setComments()
-      }
     })
 
 
