@@ -16,20 +16,42 @@ function PostComment(props) {
 
     props.sockets[props.publicationId].onmessage = (event) => {
         const data = JSON.parse(event.data)
-        if (data.post in props.comments)
-            //si existen comentarios para la publicacion se agrega los comentarios existentes junto al comentario nuevo
-            props.setComments(prev => ({ ...prev, [data.post]: [...prev[data.post], data] }))
-        else
-            // si no hay comentarios se crea el comentario para cada publicacion y se mantienen los comentarios de otras publicaciones
-            props.setComments(prev => ({ ...prev, [data.post]: [data] }))
+        
+        if (data.type === "comment_message") { //si es un mensaje entrante
+            if (data.post in props.comments)
+                //si existen comentarios para la publicacion se agrega los comentarios existentes junto al comentario nuevo
+                props.setComments(prev => ({ ...prev, [data.post]: [...prev[data.post], data] }))
+            else
+                // si no hay comentarios se crea el comentario para cada publicacion y se mantienen los comentarios de otras publicaciones
+                props.setComments(prev => ({ ...prev, [data.post]: [data] }))
 
-        props.setPublications(prev =>
-            prev.map(publication =>
-                publication.id === props.publicationId
-                    ? { ...publication, numb_comm: publication.numb_comm + 1, }
-                    : publication
+            props.setPublications(prev =>
+                prev.map(publication =>
+                    publication.id === props.publicationId
+                        ? { ...publication, numb_comm: publication.numb_comm + 1, }
+                        : publication
+                )
             )
-        )
+        }
+        if (data.type === "like_message") { // si es un like entrante
+            if (data.like_operation === "delete")
+                //eliminar like de la publicacion
+                props.setPublications(prev =>
+                    prev.map(publication =>
+                        publication.id === props.publicationId
+                            ? { ...publication, numb_likes: publication.numb_likes - 1}
+                            : publication
+                    )
+                )
+            else // si no fue eliminado, se inserto un like
+            props.setPublications(prev =>
+                    prev.map(publication =>
+                        publication.id === props.publicationId
+                            ? { ...publication, numb_likes: publication.numb_likes + 1}
+                            : publication
+                    )
+                )
+        }
     }
 
     const validationSchema = Yup.object().shape({

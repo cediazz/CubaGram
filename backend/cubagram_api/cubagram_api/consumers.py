@@ -1,8 +1,5 @@
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
-from channels.db import database_sync_to_async
-from django.contrib.auth import get_user_model
-from aplication_management.models import Comment, Like, Post
 
 class PostConsumer(AsyncWebsocketConsumer):
     async def connect(self):
@@ -26,13 +23,12 @@ class PostConsumer(AsyncWebsocketConsumer):
 
     # Recibir mensaje del WebSocket
     async def receive(self, text_data):
-        print(text_data)
         text_data_json = json.loads(text_data)
         message_type = text_data_json['type']
         
         if message_type == 'comment_message':
             await self.handle_new_comment(text_data_json)
-        elif message_type == 'new_like':
+        elif message_type == 'like':
             await self.handle_new_like(text_data_json)
 
     # Manejar nuevo comentario
@@ -46,13 +42,12 @@ class PostConsumer(AsyncWebsocketConsumer):
 
     # Manejar nuevo like
     async def handle_new_like(self, data):
-        like_data = await self.toggle_like(data)
         
         await self.channel_layer.group_send(
             self.room_group_name,
             {
                 'type': 'like_message',
-                'like': like_data
+                'like_operation': data['operation']
             }
         )
 
@@ -61,10 +56,6 @@ class PostConsumer(AsyncWebsocketConsumer):
         # Enviar al WebSocket
         await self.send(text_data=json.dumps(data))
 
-    async def like_message(self, event):
-        like = event['like']
-        
-        await self.send(text_data=json.dumps({
-            'type': 'like_update',
-            'like': like
-        }))
+    async def like_message(self, data):
+        # Enviar al WebSocket
+        await self.send(text_data=json.dumps(data))

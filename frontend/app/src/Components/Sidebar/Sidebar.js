@@ -3,7 +3,11 @@ import icons8 from '../../icons/icons8-wechat-color/icons8-wechat-480.png'
 import { useContext } from 'react';
 import { UserContext } from '../../utils/userContext';
 import { useEffect } from "react";
-
+import { FaUsers } from "react-icons/fa"
+import { FaSquarePlus } from "react-icons/fa6"
+import { FaImages } from "react-icons/fa"
+import { FaArrowRightToBracket } from "react-icons/fa6"
+import { FaUser } from "react-icons/fa6"
 
 function Sidebar() {
 
@@ -35,21 +39,11 @@ function Sidebar() {
             <a class="d-block">{user.username}</a>
           </div>
         </div>
-        <div class="form-inline">
-          <div class="input-group" data-widget="sidebar-search">
-            <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search" />
-            <div class="input-group-append">
-              <button class="btn btn-sidebar">
-                <i class="fas fa-search fa-fw"></i>
-              </button>
-            </div>
-          </div>
-        </div>
         <nav class="mt-2">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-item">
               <Link class="nav-link" to='/'>
-                <i class="nav-icon fas fa-home"></i>
+                <FaImages class="img-circle nav-icon"/>
                 <p>
                   Publicaciones
                 </p>
@@ -57,7 +51,7 @@ function Sidebar() {
             </li>
             <li class="nav-item">
               <Link class="nav-link" to='users'>
-                <i class="nav-icon fas fa-user"></i>
+                <FaUsers class="img-circle nav-icon"/>
                 <p>
                   Usuarios
                 </p>
@@ -65,19 +59,19 @@ function Sidebar() {
             </li>
             <li class="nav-item">
               <Link class="nav-link" to={"profile/" + user_id} >
-                <img src={user.image} alt="" class="img-circle nav-icon" />
+                <FaUser class="img-circle nav-icon"/>
                 <p>Perfil</p>
               </Link>
             </li>
             <li class="nav-item">
               <Link class="nav-link" to="create-publication" >
-                <i class="nav-icon fas fa-plus-square"></i>
+                <FaSquarePlus class="img-circle nav-icon"/>
                 <p>Crear publicación</p>
               </Link>
             </li>
             <li class="nav-item">
               <Link class="nav-link" to='login' onClick={LogOut}>
-                <i class="fas fa-sign-out-alt fa-3x nav-icon"></i>
+                <FaArrowRightToBracket class="img-circle nav-icon"/>
                 <p>Salir</p>
               </Link>
             </li>

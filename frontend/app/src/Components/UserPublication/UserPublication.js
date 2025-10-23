@@ -120,6 +120,7 @@ function UserPublication(props) {
                   publicationId={publication.id}
                   userLiked={publication.user_liked}
                   setPublications={setPublications}
+                  sockets={sockets}
                 />
                 <span class="float-right text-muted">{publication.numb_likes} me gusta- {publication.numb_comm} comentarios</span>
               </div>

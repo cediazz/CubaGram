@@ -1,6 +1,8 @@
 import createLike from "../../utils/createLike";
 import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2'
+import { FaHeart } from "react-icons/fa"
+import { FaRegHeart } from "react-icons/fa"
 
 function LikeButton(props) {
 
@@ -14,19 +16,21 @@ function LikeButton(props) {
                 navigate('/login');
             }
             else if (res == "") {  //si el like fue eliminado
+                props.sockets[props.publicationId].send(JSON.stringify({ type: 'like', operation:'delete' }))
                 props.setPublications(prev =>
                     prev.map(publication =>
                         publication.id === props.publicationId
-                            ? { ...publication, numb_likes: publication.numb_likes - 1, user_liked: false }
+                            ? { ...publication, user_liked: false }
                             : publication
                     )
                 )
             }
             else { // si no fue eliminado, se inserto un like
+                props.sockets[props.publicationId].send(JSON.stringify({ type: 'like', operation:'add' }))
                 props.setPublications(prev =>
                     prev.map(publication =>
                         publication.id === props.publicationId
-                            ? { ...publication, numb_likes: publication.numb_likes + 1, user_liked: true }
+                            ? { ...publication, user_liked: true }
                             : publication
                     )
                 )
@@ -52,7 +56,7 @@ function LikeButton(props) {
             type="button"
             className={props.userLiked ? 'btn-success btn  btn-sm' : 'btn btn-default btn-sm'}
             onClick={() => likeManagement()}>
-            <i className={props.userLiked ? 'fas fa-thumbs-up' : 'far fa-thumbs-up'}></i> Me gusta
+            {props.userLiked ? <FaHeart /> : <FaRegHeart />} Me gusta
         </button>
 
     )

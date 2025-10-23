@@ -2,6 +2,9 @@ import { Link } from "react-router-dom"
 import Swal from 'sweetalert2'
 import { useNavigate } from "react-router-dom";
 import createFollow from "../../utils/createFollow";
+import { FaUserMinus } from "react-icons/fa"
+import { FaUserPlus } from "react-icons/fa"
+import { FaUser } from "react-icons/fa6"
 
 function UsersCard(props) {
 
@@ -53,9 +56,9 @@ function UsersCard(props) {
     <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column mt-3">
       <div class="card bg-light d-flex flex-fill">
         <div class="card-body pt-0">
-          <div class="row">
+          <div class="row mt-3">
             <div class="col-7">
-              <h2 class="lead"><b>{props.user.first_name + props.user.last_name}</b></h2>
+              <h2 class="lead"><b>{props.user.first_name + " " + props.user.last_name}</b></h2>
             </div>
             <div class="col-5 text-center">
               <img src={props.user.image} alt="user-avatar" class="img-circle img-fluid" />
@@ -67,16 +70,16 @@ function UsersCard(props) {
             <button class="btn btn-sm bg-teal mr-1" onClick={() => followManagement()}>
               {props.user.followed_user ? (
                 <>
-                  <i className="fas fa-user-minus"></i> Dejar de seguir
+                  <FaUserMinus /> Dejar de seguir
                 </>
               ) : (
                 <>
-                  <i className="fas fa-user-plus"></i> Seguir
+                  <FaUserPlus /> Seguir
                 </>
               )}
             </button>
             <Link to={userProfile} class="btn btn-sm btn-primary">
-              <i class="fas fa-user"></i> Ver perfil
+              <FaUser /> Ver perfil
             </Link>
           </div>
         </div>
