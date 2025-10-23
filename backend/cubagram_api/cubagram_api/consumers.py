@@ -4,8 +4,6 @@ from channels.db import database_sync_to_async
 from django.contrib.auth import get_user_model
 from aplication_management.models import Comment, Like, Post
 
-CustomUser = get_user_model()
-
 class PostConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         self.post_id = self.scope['url_route']['kwargs']['post_id']
@@ -70,28 +68,3 @@ class PostConsumer(AsyncWebsocketConsumer):
             'type': 'like_update',
             'like': like
         }))
-
-    @database_sync_to_async
-    def toggle_like(self, data):
-        user = CustomUser.objects.get(id=data['user_id'])
-        post = Post.objects.get(id=data['post_id'])
-        
-        like, created = Like.objects.get_or_create(
-            post=post,
-            user=user
-        )
-        
-        if not created:
-            like.delete()
-            liked = False
-        else:
-            liked = True
-        
-        like_count = Like.objects.filter(post=post).count()
-        
-        return {
-            'post_id': post.id,
-            'user_id': user.id,
-            'liked': liked,
-            'like_count': like_count
-        }
