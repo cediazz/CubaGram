@@ -172,7 +172,7 @@ if not DEBUG:
     # and renames the files with unique names for each version to support long-term caching
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
     print(os.environ.get('RENDER_EXTERNAL_HOSTNAME'))
-    BASE_URL = f"https://{os.environ.get('RENDER_EXTERNAL_HOSTNAME', 'https://cubagram.onrender.com')}"
+    BASE_URL = 'https://cubagram.onrender.com'
 else:
     BASE_URL = 'http://127.0.0.1:8000'
 
